@@ -1,0 +1,10 @@
+{
+ "_comment": "Links in captured content whose targets are broken on the live site as well (404/500 at capture time, 2026-11-14). They intentionally show the 404 page; the link checker in test/ skips exactly these.",
+ "links": [
+  "/en-US/panorama-organic-grass-fed-beef-ground-beef/60415.html",
+  "/en-US/panorama-organic-grass-fed-93-7-ground-beef/60416.html",
+  "/en-US/flavor-guarantee.html%E2%80%9D%3E%3Cfont%20color=",
+  "/en-US/null",
+  "/en-US/producers"
+ ]
+}

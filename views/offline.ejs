@@ -1,0 +1,15 @@
+<%- include('/partials/document-start', { title }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container offline-page offline-notice">
+    <h1 class="offline-title">This feature isn’t available offline</h1>
+    <p>Cart, checkout, account, login, wishlist and order tracking need the live store, so this offline copy of Perdue Farms doesn’t include them.</p>
+    <% if (from) { %><p class="offline-requested">Requested: <code><%= from %></code></p><% } %>
+    <p class="offline-actions">
+      <a class="btn btn-primary" href="/">Back to home</a>
+      <a class="btn btn-outline-primary" href="/search">Search products &amp; recipes</a>
+    </p>
+  </div>
+</div>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>

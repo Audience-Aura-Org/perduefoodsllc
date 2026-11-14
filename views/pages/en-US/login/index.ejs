@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/offline-shims.js"></script>
+<!--[if gt IE 9]><!-->
+<script>//common/scripts.isml</script>
+
+<script defer type="text/javascript" src="/js/main.js"></script>
+
+    <script defer type="text/javascript" src="/js/login.js"
+
+        >
+    </script>
+
+    <script defer type="text/javascript" src="/js/giftCert.js"
+
+        >
+    </script>
+
+<!--<![endif]-->
+<meta charset="UTF-8" />
+
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10" />
+
+<title>Login | Perdue Farms</title>
+<meta name="description" content="null"/>
+<meta name="keywords" content="null"/>
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/site/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/site/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/site/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/site/safari-pinned-tab.svg" color="#003b71">
+<link rel="shortcut icon" href="/images/site/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/images/site/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="/css/global.css" />
+
+    <link rel="stylesheet" href="/css/login.css"  />
+
+    <link rel="stylesheet" href="/css/giftCert.css"  />
+
+    <meta name="facebook-domain-verification"  content="fy0od1jl3606xoo8f1uedkfo3nvzqp" />
+
+    <meta name="google-site-verification" content="9Eze1qjx9ErZ-pNdFj0lJPXayg-U-W12Lf02gX3Ub5w" />
+
+<link
+  rel="stylesheet"
+  href="/css/swiper-bundle.min.css"
+/>
+
+<script src="/js/swiper-bundle.min.js"></script>
+
+<!-- Start CBT Include -->
+
+    <!-- End CBT Include -->
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="page" data-action="Login-Show" data-querystring="">
+
+<%- include('/partials/header') %>
+
+<div class="main-content" id="maincontent">
+
+<div class="wrapper-banner-promo-slot bg-perdue_default bg-perdue_blue">
+
+	<div class="html-slot-container">
+
+            <a href= "/"><span style="color:#ffffff;">Get 1 FREE Boneless Pork Loin Chop and Apple Blossoms Duo with every order over $99.99!</span></a>
+
+</div>
+
+</div>
+
+<!-- dwMarker="content" dwContentID="fbd661e46d57441d7c19395b88" -->
+
+<!-- END_dwmarker -->
+
+    <div class="container login-page">
+
+        <div class="row" role="navigation" aria-label="Breadcrumb">
+
+    <div class="col">
+        <ol class="breadcrumb">
+
+                <li class="breadcrumb-item">
+                    <a href="/" aria-current='page'>
+                        Home
+                    </a>
+                </li>
+
+        </ol>
+    </div>
+</div>
+
+        <h1 class="account-page-title pb-2">Login</h1>
+        <div class="row justify-content-center equal-height">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <div class="login-form-nav">
+                            <ul class="nav nav-tabs nav-fill" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a  href="#login"
+            id="login-tab"
+            class="nav-link active"
+            data-toggle="tab" role="tab"
+            aria-controls="login" aria-selected="true"
+            data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Log In&quot;,&quot;menu_item_section&quot;:&quot;Nav Tabs&quot;}"
+        >
+            Login
+        </a>
+    </li>
+    <li class="nav-item nav-item-register" role="presentation">
+        <a  href="#register"
+            id="register-tab"
+            class="nav-link "
+            data-toggle="tab" role="tab"
+            aria-controls="register" aria-selected="false"
+            data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Register&quot;,&quot;menu_item_section&quot;:&quot;Nav Tabs&quot;}"
+        >
+            Create Account
+        </a>
+    </li>
+</ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="login" role="tabpanel" aria-labelledby="login-tab">
+
+                                    <form action="/on/demandware.store/Sites-Perdue_US-Site/en_US/Account-Login" class="login mb-3" method="POST" name="login-form">
+    <div class="form-group required">
+        <label class="form-control-label" for="login-form-email">
+            Email
+        </label>
+        <input
+            type="email"
+            id="login-form-email"
+            name="loginEmail"
+            class="form-control required"
+            required aria-required="true"
+            aria-describedby="form-email-error"
+            value=""
+        />
+        <div class="invalid-feedback" id="form-email-error"></div>
+    </div>
+
+    <div class="form-group required position-relative">
+        <label class="form-control-label" for="login-form-password">
+                Password
+        </label>
+        <input
+            type="password"
+            id="login-form-password"
+            name="loginPassword"
+            class="form-control required"
+            required aria-required="true"
+            aria-describedby="form-password-error"
+            autocomplete="off"
+        />
+        <span toggle="#login-form-password" class="fa fa-eye visible-password"></span>
+        <div class="invalid-feedback" id="form-password-error"></div>
+    </div>
+
+    <div class="clearfix">
+        <div class="form-group custom-control custom-checkbox pull-left remember-me">
+            <input
+                type="checkbox"
+                id="rememberMe"
+                name="loginRememberMe"
+                class="custom-control-input"
+                value="true"
+                checked
+            />
+            <label class="custom-control-label" for="rememberMe">
+                Remember me
+            </label>
+        </div>
+
+        <div class="pull-right forgot-password text-right">
+            <a href="/en-US/login/"
+               id="password-reset"
+               class="ms-anchor"
+               title="forgot password?"
+               data-toggle="modal"
+               data-target="#requestPasswordResetModal"
+            >
+                forgot password?
+            </a>
+        </div>
+    </div>
+
+    <input type="hidden" name="csrf_token" value=""/>
+
+    <button
+        type="submit"
+        class="btn btn-primary w-100"
+        data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Email&quot;,&quot;menu_item_section&quot;:&quot;Log In&quot;}"
+    >
+        Login
+    </button>
+</form>
+
+                                    <div class="modal fade" id="requestPasswordResetModal" tabindex="-1" role="dialog" aria-labelledby="requestPasswordResetModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title request-password-title">Forgot your Password</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <form class="reset-password-form" action="/on/demandware.store/Sites-Perdue_US-Site/en_US/Account-PasswordResetDialogForm" method="POST" name="email-form" id="email-form">
+    <div class="request-password-body">
+        <p>
+            Provide your account email address to receive an email to reset your password.
+        </p>
+        <div class="form-group required">
+            <label class="form-control-label" for="reset-password-email">
+                Email
+            </label>
+            <input
+                id="reset-password-email"
+                type="email"
+                class="form-control"
+                name="loginEmail"
+                aria-describedby="emailHelp"
+                placeholder="Email">
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <input type="hidden" name="csrf_token" value=""/>
+    <div class="send-email-btn">
+        <button
+            type="submit"
+            id="submitEmailButton"
+            class="btn btn-primary btn-block">
+            Send
+        </button>
+    </div>
+</form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/on/demandware.store/Sites-Perdue_US-Site/en_US/Login-Show" class="login-oauth row m-0" method="post" name="login-oauth-form">
+    <div class="col p-0 mr-2 mb-3">
+        <a href="/en-US/login/"
+           class="btn btn-outline-primary btn-block px-1 oauth-google"
+           role="button"
+           aria-pressed="true"
+           data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Google&quot;,&quot;menu_item_section&quot;:&quot;Log In&quot;}"
+        >
+            <i class="fa fa-google" aria-hidden="true"></i>
+            Login with Google
+        </a>
+    </div>
+    <div class="col p-0 ml-2 mb-3">
+        <a href="/en-US/login/"
+           class="btn btn-outline-primary btn-block px-1 oauth-facebook"
+           role="button"
+           aria-pressed="true"
+           data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Facebook&quot;,&quot;menu_item_section&quot;:&quot;Log In&quot;}"
+        >
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            Login with Facebook
+        </a>
+    </div>
+</form>
+
+                                </div>
+                                <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab">
+
+<form
+    action="/on/demandware.store/Sites-Perdue_US-Site/en_US/Account-SubmitRegistration"
+    class="registration"
+    method="POST"
+    name="dwfrm_profile">
+    <div class="form-group required">
+        <label class="form-control-label" for="registration-form-email">
+            Email
+        </label>
+        <input
+            type="text"
+            id="registration-form-email"
+            class="form-control"
+            data-missing-error="This field is required."
+            data-pattern-mismatch="Please enter a valid E-Mail address"
+            data-range-error="Must be 50 characters or less."
+            aria-describedby="form-email-error"
+            name="dwfrm_profile_customer_email" required aria-required="true" value="" maxLength="50" pattern="^\w+([\.%+-]?\w+)*@[\w.-]+\.[\w]{2,7}$"
+        />
+        <div class="invalid-feedback" id="form-email-error"></div>
+
+            <div class="form-group custom-control custom-checkbox attached add-to-email-list">
+                <input
+                    type="checkbox"
+                    id="add-to-email-list"
+                    class="custom-control-input"
+                    name="dwfrm_profile_customer_addtoemaillist" value="true"
+                />
+                <label class="custom-control-label" for="add-to-email-list">
+
+    <div class="content-asset email-opt-in-disclaimer"><!-- dwMarker="content" dwContentID="aca94a2e48011284bc3c16da56" -->
+        Email Me with Delicious Updates
+<p class="font-size-10 line-height-1-2 pt-1 mb-0">Perdue does not share or sell personal info.  Click to view the <a href="/en-US/customer-service/privacy-security/privacy-policy.html" title="Go to Privacy Policy" class="color-light-blue" target="_blank">Privacy Policy</a>.</p>
+    </div> <!-- End content-asset -->
+
+                </label>
+            </div>
+
+    </div>
+
+    <div class="form-group d-none ">
+        <label class="form-control-label" for="registration-form-email-confirm">
+            Confirm Email
+        </label>
+        <input
+            type="text"
+            id="registration-form-email-confirm"
+            class="form-control"
+            data-missing-error="This field is required."
+            data-pattern-mismatch="Please enter a valid E-Mail address"
+            data-range-error="Must be 50 characters or less."
+            aria-describedby="form-email-confirm-error"
+            name="dwfrm_profile_customer_emailconfirm" value="" maxLength="50" pattern="^\w+([\.%+-]?\w+)*@[\w.-]+\.[\w]{2,7}$"
+        />
+        <div class="invalid-feedback" id="form-email-confirm-error"></div>
+    </div>
+
+    <div class="form-group position-relative required">
+        <label class="form-control-label" for="registration-form-password">
+            Password
+        </label>
+        <input
+            type="password"
+            id="registration-form-password"
+            class="form-control"
+            autocomplete="off"
+            data-missing-error="This field is required."
+            data-range-error="This field needs 8 to 255 characters"
+            aria-describedby="form-password-error"
+            name="dwfrm_profile_login_password" required aria-required="true" value="" maxLength="255" minLength="8"
+        />
+        <span toggle="#registration-form-password" class="fa fa-eye visible-password"></span>
+        <div class="invalid-feedback" id="form-password-error"></div>
+    </div>
+
+    <div class="form-group position-relative required">
+        <label class="form-control-label" for="registration-form-password-confirm">
+            Confirm Password
+        </label>
+        <input
+            type="password"
+            id="registration-form-password-confirm"
+            class="form-control"
+            autocomplete="off"
+            data-missing-error="This field is required."
+            data-range-error="This field needs 8 to 255 characters"
+            aria-describedby="form-password-confirm-error"
+            name="dwfrm_profile_login_passwordconfirm" required aria-required="true" value="" maxLength="255" minLength="8"
+        />
+        <span toggle="#registration-form-password-confirm" class="fa fa-eye visible-password"></span>
+        <div class="invalid-feedback" id="form-password-confirm-error"></div>
+    </div>
+
+    <div class="form-group required">
+        <label class="form-control-label" for="registration-form-fname">
+            First Name
+        </label>
+        <input
+            type="text"
+            id="registration-form-fname"
+            class="form-control"
+            data-missing-error="This field is required."
+            data-range-error="Must be 50 characters or less."
+            aria-describedby="form-fname-error"
+            name="dwfrm_profile_customer_firstname" required aria-required="true" value="" maxLength="50"
+        />
+        <div class="invalid-feedback" id="form-fname-error"></div>
+    </div>
+
+    <div class="form-group required">
+        <label class="form-control-label" for="registration-form-lname">
+            Last Name
+        </label>
+        <input
+            type="text"
+            id="registration-form-lname"
+            class="form-control"
+            data-missing-error="This field is required."
+            data-range-error="Must be 50 characters or less."
+            aria-describedby="form-lname-error"
+            name="dwfrm_profile_customer_lastname" required aria-required="true" value="" maxLength="50"
+        />
+        <div class="invalid-feedback" id="form-lname-error"></div>
+    </div>
+
+    <div class="form-group required">
+        <label class="form-control-label" for="registration-form-phone">
+            Phone
+        </label>
+        <input
+            type="tel"
+            id="registration-form-phone"
+            class="form-control"
+            data-missing-error="This field is required."
+            data-pattern-mismatch="Please enter a valid phone number"
+            data-range-error="Must be 50 characters or less."
+            aria-describedby="form-phone-error"
+            placeholder="Example: 9234567890"
+            name="dwfrm_profile_customer_phone" required aria-required="true" value="" maxLength="2147483647" pattern="^\(?(1?)([2-9][0-8][0-9])\)?[\-\.]?([2-9][0-9]{2})[\-\. ]?([0-9]{4})(\s*x[0-9]+)?$"
+        />
+        <div class="invalid-feedback" id="form-phone-error"></div>
+
+            <div class="form-group custom-control custom-checkbox attached add-to-sms-list">
+                <input
+                    type="checkbox"
+                    id="add-to-sms-list"
+                    class="custom-control-input"
+                    name="dwfrm_profile_customer_addtosmslist" value="true"
+                />
+                <label class="custom-control-label" for="add-to-sms-list">
+
+    <div class="content-asset sms-opt-in-disclaimer"><!-- dwMarker="content" dwContentID="2d7e30d2733abb15bea6e53ae3" -->
+        Text Me with Exclusive Insider Offers
+<p class="font-size-10 line-height-1-2 pt-1 mb-0">By submitting this form, you agree to receive recurring automated promotional and personalized marketing text messages (e.g. cart reminders) from Perdue Farms at the mobile number used when signing up.  Consent is not a condition of any purchase.  Reply HELP for help and STOP to cancel.  Message frequency varies.  Message and data rates may apply.
+<span class="d-block pt-2">Click to view <a href="/en-US/customer-service/terms-conditions/terms.html" title="Go to Terms and Conditions" class="color-light-blue" target="_blank">Terms and Conditions</a> and <a href="/en-US/customer-service/privacy-security/privacy-policy.html" title="Go to Privacy Policy" class="color-light-blue" target="_blank">Privacy Policy</a>.</span></p>
+    </div> <!-- End content-asset -->
+
+                </label>
+            </div>
+
+    </div>
+
+    <input type="hidden" name="csrf_token" value=""/>
+
+        <input type="hidden" id="g-recaptcha-response" name="gRecaptchaResponse" />
+        <button
+            type="submit"
+            name="submit"
+            class="btn btn-primary w-100 g-recaptcha"
+            data-sitekey="6LcX7NMZAAAAAJJXhYqoN1RhshUejaZdvIe-U4tD"
+            data-callback="onSubmit"
+            data-action="submitRegisterForm"
+            data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Submit&quot;,&quot;menu_item_section&quot;:&quot;Register&quot;}"
+        >
+            Create Account
+        </button>
+
+</form>
+
+                                </div>
+                            </div>
+                        </div>
+
+        <div class="shipping-info-wrapper" style="background-color: #fff2cc">
+    <p class="title"><strong>About Shipping</strong></p>
+    <p class="content">Orders ship on Tues. and Wed. via UPS. Place order before 9 a.m. ET on Sun., Mon. or Tues. for delivery on Fri. (approximate). <strong>Delays may occur due to weather, carrier issues or shortages in shipping supplies.</strong> Click link in order confirmation email or use our <a href="/en-US/login/" title="Check Order tool">“Check Order” tool</a> to monitor shipment of your order. See full <a href="/en-US/help/#shipping" title="Go to Support">deliver-by schedule</a> for more details.</p></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 flex-column">
+                <div class="card">
+
+<form action="/on/demandware.store/Sites-Perdue_US-Site/en_US/Order-Track" class="trackorder" method="POST" name="trackorder-form">
+    <h2 class="card-header track-order-header">Check Order</h2>
+    <div class="card-body pb-0">
+
+        <div class="track-order-header-text">
+
+    <div class="content-asset track-order-text"><!-- dwMarker="content" dwContentID="abd3a942099fd632e76f82cd32" -->
+        See your order even if you are not a registered user. Enter the order number.
+    </div> <!-- End content-asset -->
+
+        </div>
+        <div class="form-group required">
+            <label class="form-control-label" for="trackorder-form-number">
+                Order number
+            </label>
+            <input
+                type="text"
+                required
+                class="form-control"
+                id="trackorder-form-number"
+                aria-describedby="form-number-error"
+                name="trackOrderNumber">
+            <div class="invalid-feedback" id="form-number-error"></div>
+        </div>
+
+        <div class="form-group required">
+            <label class="form-control-label" for="trackorder-form-email">
+                Order Email
+            </label>
+            <input
+                type="text"
+                required
+                class="form-control"
+                id="trackorder-form-email"
+                aria-describedby="form-email-error"
+                name="trackOrderEmail"
+                pattern="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+                maxlength="50">
+            <div class="invalid-feedback" id="form-email-error"></div>
+        </div>
+
+        <input type="hidden" name="csrf_token" value=""/>
+
+        <div class="form-group">
+            <button class="btn btn-primary w-100"
+                    type="submit"
+                    name="submit"
+                    value="submit"
+                    data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Check Status&quot;,&quot;menu_item_section&quot;:&quot;Order Lookup&quot;}"
+            >
+                Check status
+            </button>
+        </div>
+    </div>
+</form>
+
+                </div>
+                <div class="card">
+
+<div class="gift-certificate-content" id="gift-certificate-content">
+    <fieldset class="giftcert-form-fields">
+
+        <h2 class="card-header h3">
+            Check Balance
+        </h2>
+
+        <div class="card-body">
+            <div class="form-group required">
+                <label class="form-control-label" for="giftcert-code">Gift Card Code:</label>
+                <input
+                    id="giftcert-code"
+                    type="text"
+                    required
+                    class="form-control giftcert-input-field"
+                    aria-describedby="form-number-error"
+
+                    placeholder="AAAABBBBCCCCDDDD"
+                    data-gift-cert-remove="/on/demandware.store/Sites-Perdue_US-Site/en_US/GiftCertificate-Remove"
+                    data-gift-cert-apply="/on/demandware.store/Sites-Perdue_US-Site/en_US/GiftCertificate-Add"
+                    data-gift-cert-add="/on/demandware.store/Sites-Perdue_US-Site/en_US/GiftCertificate-Check" />
+                <div class="invalid-feedback" id="form-number-error"></div>
+            </div>
+
+            <div class="giftcertcode-error my-3" role="alert"></div>
+            <div class="giftcertcode-message my-3"></div>
+
+            <div class="form-group mb-0">
+                <button type="button"
+                        class="btn btn-primary btn-block giftcertcode-button"
+                        data-cbt="{&quot;event&quot;:&quot;menu_click&quot;,&quot;eventTypes&quot;:&quot;link,click&quot;,&quot;menu_type&quot;:&quot;Account&quot;,&quot;menu_item_name&quot;:&quot;Check Balance&quot;,&quot;menu_item_section&quot;:&quot;Gift Card Lookup&quot;}"
+                >
+                    Check balance
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr class="main-content-separate-footer hidden-md-down">
+<%- include('/partials/footer') %>
+
+</div>
+<div class="error-messaging"></div>
+<div class="modal-background"></div>
+
+<!--[if lt IE 10]>
+<script>//common/scripts.isml</script>
+
+<script defer type="text/javascript" src="/js/main.js"></script>
+
+    <script defer type="text/javascript" src="/js/login.js"
+
+        >
+    </script>
+
+    <script defer type="text/javascript" src="/js/giftCert.js"
+
+        >
+    </script>
+
+<![endif]-->
+
+<div class="modal fade" id="removeProductModal" tabindex="-1" role="dialog" aria-labelledby="removeProductLineItemModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header delete-confirmation-header pb-2">
+                <h2 class="modal-title line-height-1" id="removeProductLineItemModal">Remove Product?</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body delete-confirmation-body">
+                Are you sure you want to remove the following product from the cart?
+                <p class="product-to-remove mb-0"></p>
+            </div>
+            <div class="modal-footer">
+                <div class="remove-cart-product-footer row w-100 m-0 justify-content-end">
+                    <button type="button" class="cart-delete-return-btn btn btn-outline-primary btn-block col-12 col-sm-6 mr-sm-3 mb-3 mb-sm-0" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="cart-delete-confirmation-btn btn btn-primary btn-block col mt-0"
+                            data-dismiss="modal">
+                        Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span class="api-true consented tracking-consent"
+    data-caOnline="true"
+    data-removeConsentBannerOverlay="true"
+    data-url="/api/consent-tracking-content.html"
+    data-reject="/api/consent-set.json"
+    data-accept="/api/consent-set.json"
+    data-dismissText="DISMISS"
+    data-rejectText="No"
+    data-heading="We use cookies on this site to enhance your user experience"
+    ></span>
+<!-- Demandware Analytics code 1.0 (body_end-analytics-tracking-asynch.js) -->
+
+<!-- Demandware Active Data (body_end-active_data.js) -->
+<!-- CQuotient Activity Tracking (body_end-cquotient.js) -->
+
+</body>
+</html>
+

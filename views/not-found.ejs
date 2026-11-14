@@ -1,0 +1,16 @@
+<%- include('/partials/document-start', { title }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container offline-page offline-notice">
+    <h1 class="offline-title">We couldn’t find that page</h1>
+    <p>The page <code><%= path %></code> isn’t part of this offline copy. It may have been removed from the live site before it was captured.</p>
+    <form class="offline-search-form" action="/search" method="get" role="search">
+      <label class="sr-only" for="nf-q">Search</label>
+      <input id="nf-q" class="form-control" type="search" name="q" placeholder="Search products, recipes and pages">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <p class="offline-actions"><a class="btn btn-outline-primary" href="/">Back to home</a></p>
+  </div>
+</div>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>

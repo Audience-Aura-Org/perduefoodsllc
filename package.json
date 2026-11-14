@@ -1,0 +1,23 @@
+{
+  "name": "perdue-farms-offline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline Node.js (Express + EJS) version of the perduefarms.com storefront content",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch-path=src --watch-path=server.js server.js --dev",
+    "test": "node --test --test-concurrency=1 \"test/**/*.test.js\"",
+    "mail:test": "node scripts/mail-test.js"
+  },
+  "dependencies": {
+    "compression": "1.7.5",
+    "ejs": "3.1.10",
+    "express": "4.21.2",
+    "nodemailer": "6.9.16"
+  }
+}

@@ -1,0 +1,44 @@
+<%- include('/partials/document-start', { title, description: 'Search Perdue Farms products, recipes and pages.', action }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container offline-page offline-search">
+    <h1 class="offline-title"><%= q ? `Results for “${q}”` : 'Search' %></h1>
+
+    <form class="offline-search-form" action="/search" method="get" role="search">
+      <label class="sr-only" for="offline-q">Search</label>
+      <input id="offline-q" class="form-control" type="search" name="q" value="<%= q %>" placeholder="Search products, recipes and pages" autocomplete="off">
+      <% if (type) { %><input type="hidden" name="type" value="<%= type %>"><% } %>
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <% if (q) { %>
+      <nav class="offline-filters" aria-label="Filter results">
+        <a class="<%= !type ? 'active' : '' %>" href="/search?q=<%= encodeURIComponent(q) %>">All (<%= total %>)</a>
+        <% for (const t of types) { %>
+          <a class="<%= type === t ? 'active' : '' %>" href="/search?q=<%= encodeURIComponent(q) %>&type=<%= encodeURIComponent(t) %>"><%= t === 'Recipe collection' ? 'Recipe collections' : t + 's' %></a>
+        <% } %>
+      </nav>
+
+      <% if (!results.length) { %>
+        <p class="offline-empty">No results. Try a broader term such as “chicken”, “wings” or “steak”.</p>
+      <% } else { %>
+        <ul class="offline-results">
+          <% for (const r of results) { %>
+            <li>
+              <a href="<%= r.route %>">
+                <span class="offline-thumb"><% if (r.image) { %><img src="<%= r.image %>" alt="" loading="lazy"><% } %></span>
+                <span class="offline-meta">
+                  <span class="offline-type"><%= r.type %></span>
+                  <span class="offline-name"><%= r.title %></span>
+                  <% if (r.description) { %><span class="offline-desc"><%= r.description.length > 140 ? r.description.slice(0, 137) + '…' : r.description %></span><% } %>
+                </span>
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      <% } %>
+    <% } %>
+  </div>
+</div>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>

@@ -1,0 +1,35 @@
+/* Styles for pages added by the offline app (search, offline notice, 404, error). */
+.offline-page { padding-top: 32px; padding-bottom: 64px; max-width: 1100px; }
+.offline-title { font-family: "Libre Caslon Text", Georgia, serif; color: #003b71; font-weight: 400; font-size: 2rem; margin-bottom: 1rem; }
+.offline-notice { text-align: center; max-width: 720px; }
+.offline-notice p { color: #5b6770; line-height: 1.6; }
+.offline-actions { margin-top: 1.5rem; display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+.offline-requested code, .offline-notice code { word-break: break-all; }
+.offline-error { text-align: left; white-space: pre-wrap; font-size: 12px; background: #f4f5f7; padding: 12px; }
+
+.offline-search-form { display: flex; gap: .5rem; margin: 1rem 0; }
+.offline-search-form .form-control { flex: 1; min-width: 0; height: auto; padding: .75rem 1rem; font-size: 1.05rem; }
+.offline-search-form .btn { padding: 0 1.5rem; }
+
+.offline-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 1.5rem; }
+.offline-filters a { border: 1px solid #dfe3e8; padding: .35rem .85rem; color: #1d1d1b; font-size: .9rem; text-decoration: none; }
+.offline-filters a.active, .offline-filters a:hover { border-color: #003b71; color: #003b71; font-weight: 700; }
+.offline-empty { color: #5b6770; }
+
+.offline-results { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.offline-results a { display: flex; gap: 12px; padding: 12px; border: 1px solid #dfe3e8; background: #fff; color: inherit; text-decoration: none; height: 100%; }
+.offline-results a:hover { border-color: #003b71; }
+.offline-thumb { flex: 0 0 88px; height: 88px; background: #eef0f2; overflow: hidden; }
+.offline-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.offline-meta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.offline-type { color: #003b71; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.offline-name { font-weight: 700; line-height: 1.3; }
+.offline-desc { font-size: 13px; color: #5b6770; line-height: 1.4; }
+
+.offline-suggestions .item a { display: flex; align-items: center; gap: 8px; }
+.offline-suggestions .swatch-circle { width: 40px; height: 40px; object-fit: cover; border-radius: 50%; }
+
+@media (max-width: 575px) {
+  .offline-search-form { flex-direction: column; }
+  .offline-search-form .btn { padding: .75rem; }
+}
