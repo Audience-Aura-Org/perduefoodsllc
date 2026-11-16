@@ -117,7 +117,7 @@ data/
   redirects.json        Old URL → current URL (301)
   refinements.json      Which product ids carry each filter value (Organic, Course: Dinner, …)
   dead-links.json       Links that are broken on the live site too (they show the 404 page)
-public/                 css/, js/, fonts/, images/, files/, api/
+public/                 css/, js/, fonts/, images/, files/
 scripts/mail-test.js    SMTP check
 test/app.test.js        node:test suite
 ```
