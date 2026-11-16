@@ -2,9 +2,9 @@
 
 A self-contained Node.js (Express + EJS) version of the perduefarms.com storefront, captured
 2026-11-14. It serves 698 pages (products, recipes, categories, brand, farming and content pages,
-plus contact, login and cart) with every image, stylesheet, script and font stored locally.
-Category filters and sorting work, and the site's forms send email notifications through
-Titan Email.
+plus contact and login) with every image, stylesheet, script and font stored locally.
+Category filters, sorting, a working cart and guest checkout are included, and orders and the
+site's forms send email notifications through Titan Email.
 
 ## Quick start
 
@@ -40,10 +40,47 @@ All settings live in `.env`, which git ignores. `.env.example` documents every v
 | `SUBMISSIONS_FILE` | `storage/submissions.jsonl` | Every submission is also logged here |
 | `FORM_RATE_LIMIT` | `5` | Max submissions per minute per visitor, per form |
 
+## Ordering
+
+1. **Add to cart** on any product page, category tile or recipe "shop the ingredients" link.
+   The header cart badge and mini-cart update immediately.
+2. **Cart** (`/en-US/cart/`): change quantities, remove items, and see the subtotal, shipping and
+   free-shipping progress.
+3. **Checkout** (`/checkout`): one page with three steps (contact, delivery address, delivery
+   options). Fields use standard autofill tokens so browsers and password managers can fill
+   everything at once. Phone and ZIP show numeric keypads on phones, the phone number formats
+   itself, and state is a dropdown. Billing details and the gift message appear only when needed.
+   Server-side validation catches invalid email, phone and ZIP, missing fields, P.O. boxes
+   (frozen goods) and past delivery dates. Errors are listed at the top, shown next to each field,
+   and everything typed is kept.
+4. **Order placed:** saved to `storage/orders.jsonl` with an order number like `PF-261114-347148`.
+   **You** get a full order email (Reply-To = customer) and **the customer** gets a branded
+   confirmation with the same summary. The cart is emptied and a confirmation page is shown;
+   only the browser that placed the order can view it.
+
+No card details are collected: the checkout states how payment is arranged (`PAYMENT_NOTE`). To
+take payments online, integrate a hosted payment provider (Stripe Checkout, Square, PayPal);
+don't add card fields to this form.
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `FREE_SHIPPING_MIN` | `159.99` | Subtotal at or above which shipping is free |
+| `SHIPPING_FLAT_RATE` | `19.99` | Shipping charged below that |
+| `MAX_QTY_PER_ITEM` | `20` | Quantity cap per product |
+| `PAYMENT_NOTE` | (see `.env.example`) | Payment wording at checkout and in emails |
+| `ORDERS_FILE` / `CARTS_FILE` | `storage/…` | Order log and saved carts |
+
+Prices come from the captured product pages; edit a product's template to change its price.
+
 ## Email notifications (Titan)
+
+| Event | You receive | Customer receives |
+| --- | --- | --- |
+| Order placed | Full order with customer, address, delivery options, items and totals | Order confirmation with the same summary |
 
 | Form | Where | You receive | Visitor receives |
 | --- | --- | --- | --- |
+| Checkout | `/checkout` | New order | Order confirmation |
 | Newsletter sign-up | Footer of every page | New subscriber's address | Confirmation |
 | Contact Us | `/en-US/contact-us/` | Full message (Reply-To = visitor) | Confirmation |
 | Ambassador program | `/en-US/ambassador-program/` | Full application (Reply-To = applicant) | Confirmation |
@@ -66,10 +103,14 @@ src/
   product-grid.js       Splitting and sorting product tiles
   store-api.js          Local answers for the commerce endpoints the site's JavaScript calls
   forms.js              Newsletter, contact, ambassador and opt-out form handlers
+  shop.js               Cart, checkout validation, orders and order emails
+  cart.js               Per-visitor carts (cookie + storage/carts.json) and pricing
+  catalog.js            Product name, price, image and availability from product pages
   mailer.js             Titan SMTP transport and email templates
 views/
   partials/             Shared header, mega menu and footer, plus the page shell for app pages
   pages/…               One template per page (path mirrors the URL)
+  cart.ejs, checkout.ejs, order-confirmation.ejs, partials/minicart.ejs
   search.ejs, offline.ejs, not-found.ejs, error.ejs
 data/
   pages.json            Page manifest: route, view, type, title, description, thumbnail, ids
@@ -92,8 +133,8 @@ test/app.test.js        node:test suite
 - **Sorting:** price low→high, high→low and name, respecting active filters.
 - **Search:** search-as-you-type in the header, plus `/search?q=` results filterable by type,
   and a JSON API at `/api/search?q=`.
-- **Shopping:** product pages, cart, login and account pages display. Add to cart, sign-in and
-  checkout show a clear "not available" message, because ordering needs the commerce back end.
+- **Shopping:** working cart and guest checkout with email notifications (see Ordering). Accounts
+  and sign-in aren't available; the login page explains that visitors can check out as guests.
 - **SEO:** `/sitemap.xml`, `/robots.txt`, and the original canonical tags and meta descriptions.
 
 ## Editing content

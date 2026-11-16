@@ -54,7 +54,37 @@ const rows = (fields) => `<table cellpadding="6" cellspacing="0" style="border-c
   .map(([k, v]) => `<tr><td style="border-bottom:1px solid #eee;color:#5b6770;width:180px;vertical-align:top">${esc(k)}</td><td style="border-bottom:1px solid #eee;white-space:pre-wrap">${esc(v)}</td></tr>`)
   .join('')}</table>`;
 
+const usd = (n) => '$' + Number(n).toFixed(2);
+const orderItems = (o) => `<table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;font-size:14px;margin:8px 0 16px">
+<tr style="background:#f4f5f7;text-align:left"><th>Item</th><th style="text-align:center">Qty</th><th style="text-align:right">Price</th><th style="text-align:right">Total</th></tr>
+${o.items.map((i) => `<tr><td style="border-bottom:1px solid #eee">${esc(i.name)}<br><span style="color:#5b6770;font-size:12px">Item ${esc(i.pid)}</span></td><td style="border-bottom:1px solid #eee;text-align:center">${i.qty}</td><td style="border-bottom:1px solid #eee;text-align:right">${usd(i.price)}</td><td style="border-bottom:1px solid #eee;text-align:right">${usd(i.total)}</td></tr>`).join('')}
+<tr><td colspan="3" style="text-align:right">Subtotal</td><td style="text-align:right">${usd(o.subtotal)}</td></tr>
+<tr><td colspan="3" style="text-align:right">Shipping</td><td style="text-align:right">${o.shippingCost ? usd(o.shippingCost) : 'FREE'}</td></tr>
+<tr><td colspan="3" style="text-align:right;font-weight:bold">Total</td><td style="text-align:right;font-weight:bold">${usd(o.total)}</td></tr></table>`;
+const addressLines = (a) => [a.company, `${a.firstName} ${a.lastName}`, a.address1, a.address2, `${a.city}, ${a.state} ${a.zip}`].filter(Boolean).join('\n');
+const orderText = (o) => `${o.items.map((i) => `${i.qty} x ${i.name} (${i.pid}) @ ${usd(i.price)} = ${usd(i.total)}`).join('\n')}\nSubtotal ${usd(o.subtotal)}\nShipping ${o.shippingCost ? usd(o.shippingCost) : 'FREE'}\nTotal ${usd(o.total)}`;
+
 export const templates = {
+  orderAdmin: (o) => ({
+    subject: `New order ${o.id} — ${usd(o.total)} from ${o.customer.firstName} ${o.customer.lastName}`,
+    html: layout(`New order ${o.id}`, `${orderItems(o)}${rows([
+      ['Customer', `${o.customer.firstName} ${o.customer.lastName}`], ['Email', o.customer.email], ['Phone', o.customer.phone],
+      ['Ship to', addressLines(o.shipping)], ['Bill to', typeof o.billing === 'string' ? o.billing : addressLines(o.billing)],
+      ['Delivery date', o.delivery.date], ['Delivery instructions', o.delivery.instructions], ['Gift message', o.gift ? o.gift.message || '(gift, no message)' : ''],
+      ['Marketing opt-in', o.marketingOptIn ? 'Yes' : 'No'], ['Placed', o.createdAt],
+    ])}<p style="color:#5b6770;font-size:13px">Payment: ${esc(o.payment)}</p>`),
+    text: `New order ${o.id}\n${o.customer.firstName} ${o.customer.lastName} <${o.customer.email}> ${o.customer.phone}\n\nShip to:\n${addressLines(o.shipping)}\n\n${orderText(o)}\n\nDelivery: ${o.delivery.date}\n${o.delivery.instructions}`,
+  }),
+  orderCustomer: (o) => ({
+    subject: `Your Perdue Farms order ${o.id} is confirmed`,
+    html: layout(`Thank you for your order, ${o.customer.firstName}!`, `<p style="line-height:1.6">We received your order <strong>${esc(o.id)}</strong>. Here’s a summary:</p>${orderItems(o)}
+<p style="line-height:1.6"><strong>Shipping to</strong><br>${esc(addressLines(o.shipping)).replace(/\n/g, '<br>')}</p>
+<p style="line-height:1.6"><strong>Delivery</strong><br>${esc(o.delivery.date)}${o.delivery.instructions ? '<br>' + esc(o.delivery.instructions) : ''}</p>
+<p style="line-height:1.6;background:#f4f5f7;padding:12px"><strong>Payment</strong><br>${esc(o.payment)}</p>
+<p style="line-height:1.6;color:#5b6770">Questions? Just reply to this email and quote your order number.</p>`),
+    text: `Thank you for your order ${o.id}!\n\n${orderText(o)}\n\nShipping to:\n${addressLines(o.shipping)}\n\nDelivery: ${o.delivery.date}\n\n${o.payment}`,
+  }),
+
   newsletterAdmin: ({ email, page, ip }) => ({
     subject: `New newsletter sign-up: ${email}`,
     html: layout('New newsletter subscriber', rows([['Email', email], ['Signed up on', page], ['IP', ip], ['Time', new Date().toISOString()]])),

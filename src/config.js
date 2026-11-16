@@ -30,6 +30,16 @@ export const config = {
   submissionsFile: path.resolve(ROOT, process.env.SUBMISSIONS_FILE || 'storage/submissions.jsonl'),
   // Max form submissions per minute per visitor IP, per form.
   formRateLimit: int(process.env.FORM_RATE_LIMIT, 5),
+  shop: {
+    // Matches the live site's banner: "Free Shipping on orders over $159.99".
+    freeShippingMin: Number(process.env.FREE_SHIPPING_MIN ?? 159.99),
+    flatShipping: Number(process.env.SHIPPING_FLAT_RATE ?? 19.99),
+    maxQtyPerItem: int(process.env.MAX_QTY_PER_ITEM, 20),
+    cartsFile: path.resolve(ROOT, process.env.CARTS_FILE || 'storage/carts.json'),
+    ordersFile: path.resolve(ROOT, process.env.ORDERS_FILE || 'storage/orders.jsonl'),
+    // Shown at checkout and in emails: how payment is arranged (no card data is collected online).
+    paymentNote: process.env.PAYMENT_NOTE || 'No payment is taken online. Our customer care team will contact you within one business day to confirm your order and arrange payment.',
+  },
 };
 
 export const mailConfigured = () => Boolean(config.mail.user && config.mail.pass && config.mail.to);

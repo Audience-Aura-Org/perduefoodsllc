@@ -896,14 +896,6 @@
   "pid": "CC100059"
  },
  {
-  "route": "/en-US/cart/",
-  "view": "pages/en-US/cart/index",
-  "type": "Page",
-  "title": "Shopping Cart",
-  "description": "null",
-  "image": ""
- },
- {
   "route": "/en-US/cast-iron-skillet-pork-chops-recipe/CN10006.html",
   "view": "pages/en-US/cast-iron-skillet-pork-chops-recipe/CN10006",
   "type": "Recipe",

@@ -7,6 +7,8 @@ import { SearchIndex } from './search.js';
 import { storeApi } from './store-api.js';
 import { formHandlers } from './forms.js';
 import { RefinementEngine, parseState, hasFilters } from './refinements.js';
+import { Catalog } from './catalog.js';
+import { shop } from './shop.js';
 const SEARCH_TYPES = ['Product', 'Recipe', 'Category', 'Recipe collection', 'Page'];
 
 /**
@@ -18,6 +20,8 @@ export function createApp({ root = ROOT, production = config.production } = {}) 
   const registry = new PageRegistry(path.join(root, 'data'));
   const search = new SearchIndex(registry.pages);
   const refinements = new RefinementEngine(path.join(root, 'data'));
+  const catalog = new Catalog(registry, viewsDir);
+  const commerce = shop({ catalog });
 
   // Rendered category pages are the input for filtering and sorting; cache them in production.
   /** @type {Map<string, Promise<string>>} */
@@ -60,8 +64,12 @@ export function createApp({ root = ROOT, production = config.production } = {}) 
   // Commerce controller paths called by the site's JavaScript: real form handling (email via
   // Titan SMTP) first, then offline stand-ins for everything else.
   const STORE = '/on/demandware.store/Sites-Perdue_US-Site/en_US';
-  app.use(STORE, formHandlers());
+  app.use(STORE, commerce.store);   // cart: add to cart, mini cart
+  app.use(STORE, formHandlers());   // newsletter, contact, ambassador, opt-out
   app.use(STORE, storeApi({ registry, search, refinements, renderPage }));
+
+  // Cart, checkout and order confirmation pages.
+  app.use(commerce.site);
 
   app.get('/health', (req, res) => res.json({ ok: true, pages: registry.pages.length }));
 

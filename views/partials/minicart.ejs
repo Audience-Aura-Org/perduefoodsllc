@@ -1,0 +1,19 @@
+<div class="container cart offline-minicart">
+  <% if (!cart.count) { %>
+    <div class="row"><div class="col-12 text-center py-3">Your cart is empty.</div></div>
+  <% } else { %>
+    <% for (const l of cart.lines.slice(0, 5)) { %>
+      <div class="row align-items-center py-2 border-bottom">
+        <div class="col-3"><img class="img-fluid" src="<%= l.product.image %>" alt=""></div>
+        <div class="col-6"><a href="<%= l.product.url %>"><%= l.product.name %></a><br><small>Qty <%= l.qty %></small></div>
+        <div class="col-3 text-right"><%= money(l.total) %></div>
+      </div>
+    <% } %>
+    <% if (cart.lines.length > 5) { %><div class="row"><div class="col-12 py-2 text-center"><small>+ <%= cart.lines.length - 5 %> more</small></div></div><% } %>
+    <div class="row py-2"><div class="col-6"><strong>Subtotal</strong></div><div class="col-6 text-right"><strong><%= money(cart.subtotal) %></strong></div></div>
+    <div class="row pb-2">
+      <div class="col-6"><a class="btn btn-outline-primary btn-block" href="/en-US/cart/">View cart</a></div>
+      <div class="col-6"><a class="btn btn-primary btn-block" href="/checkout">Checkout</a></div>
+    </div>
+  <% } %>
+</div>

@@ -1,0 +1,37 @@
+<%- include('/partials/document-start', { title, action: 'Order-Confirm' }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container shop-page">
+    <div class="co-confirm">
+      <h1 class="offline-title">Thank you, <%= order.customer.firstName %>!</h1>
+      <p>Your order <strong><%= order.id %></strong> has been received.
+        <% if (order.emailed && order.emailed.customer) { %>A confirmation has been emailed to <strong><%= order.customer.email %></strong>.<% } %></p>
+      <p class="co-payment"><%= order.payment %></p>
+    </div>
+    <div class="shop-layout">
+      <section class="shop-main">
+        <h2 class="co-h2">Delivery</h2>
+        <p><%= order.shipping.firstName %> <%= order.shipping.lastName %><br>
+          <% if (order.shipping.company) { %><%= order.shipping.company %><br><% } %>
+          <%= order.shipping.address1 %><% if (order.shipping.address2) { %>, <%= order.shipping.address2 %><% } %><br>
+          <%= order.shipping.city %>, <%= order.shipping.state %> <%= order.shipping.zip %></p>
+        <p><strong>Delivery date:</strong> <%= order.delivery.date %><% if (order.delivery.instructions) { %><br><strong>Instructions:</strong> <%= order.delivery.instructions %><% } %></p>
+        <p><strong>Contact:</strong> <%= order.customer.email %> · <%= order.customer.phone %></p>
+        <p class="offline-actions" style="justify-content:flex-start"><a class="btn btn-primary" href="/">Continue shopping</a></p>
+      </section>
+      <aside class="shop-summary">
+        <h2>Order summary</h2>
+        <ul class="co-items">
+          <% for (const i of order.items) { %><li><span><%= i.name %><small>Qty <%= i.qty %></small></span><b><%= money(i.total) %></b></li><% } %>
+        </ul>
+        <dl>
+          <dt>Subtotal</dt><dd><%= money(order.subtotal) %></dd>
+          <dt>Shipping</dt><dd><%= order.shippingCost ? money(order.shippingCost) : 'FREE' %></dd>
+          <dt class="shop-total">Total</dt><dd class="shop-total"><%= money(order.total) %></dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</div>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>

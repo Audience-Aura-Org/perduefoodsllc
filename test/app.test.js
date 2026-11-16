@@ -8,7 +8,9 @@ import { fileURLToPath } from 'node:url';
 // Tests must never send real email or touch the real submissions log: blank the SMTP
 // settings (process.loadEnvFile does not override variables that are already set).
 const SUBMISSIONS = path.join(os.tmpdir(), `perdue-test-submissions-${process.pid}.jsonl`);
-Object.assign(process.env, { SMTP_USER: '', SMTP_PASS: '', MAIL_TO: '', SUBMISSIONS_FILE: SUBMISSIONS, FORM_RATE_LIMIT: '100' });
+const ORDERS = path.join(os.tmpdir(), `perdue-test-orders-${process.pid}.jsonl`);
+const CARTS = path.join(os.tmpdir(), `perdue-test-carts-${process.pid}.json`);
+Object.assign(process.env, { SMTP_USER: '', SMTP_PASS: '', MAIL_TO: '', SUBMISSIONS_FILE: SUBMISSIONS, ORDERS_FILE: ORDERS, CARTS_FILE: CARTS, FORM_RATE_LIMIT: '100' });
 const { createApp } = await import('../src/app.js');
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -21,7 +23,7 @@ before(async () => {
   await new Promise((resolve) => { server = app.listen(0, '127.0.0.1', resolve); });
   base = `http://127.0.0.1:${server.address().port}`;
 });
-after(() => new Promise((resolve) => { fs.rmSync(SUBMISSIONS, { force: true }); server.close(resolve); }));
+after(() => new Promise((resolve) => { for (const f of [SUBMISSIONS, ORDERS, CARTS]) fs.rmSync(f, { force: true }); server.close(resolve); }));
 
 const get = (p, opts) => fetch(base + p, { redirect: 'manual', ...opts });
 
@@ -79,7 +81,7 @@ test('offline commerce endpoints answer in the shapes the client expects', async
   assert.match(await sugg.text(), /class="suggestions/);
   const cart = await (await get(`${store}/Cart-AddProduct`, { method: 'POST' })).json();
   assert.equal(cart.error, true);
-  assert.match(cart.message, /offline/i);
+  assert.match(cart.message, /no longer available/i); // no pid: nothing is added
   const cat = pages.find((p) => p.cgid);
   const grid = await get(`${store}/Search-ShowAjax?cgid=${encodeURIComponent(cat.cgid)}&srule=price-low-to-high`);
   assert.equal(grid.status, 200);
@@ -151,7 +153,7 @@ test('controller-style links redirect to local pages', async () => {
   const store = '/on/demandware.store/Sites-Perdue_US-Site/en_US';
   for (const [from, to] of [
     [`${store}/ContactUs-Show`, '/en-US/contact-us/'], [`${store}/Login-Show`, '/en-US/login/'], [`${store}/Farms-Show`, '/en-US/our-farms/'],
-    [`${store}/Search-Show?cgid=chicken`, '/en-US/farm-fresh-chicken/'], [`${store}/Search-Show?q=ham`, '/search?q=ham'], ['/en-US/account', '/en-US/login/'], ['/en-US/cart', '/en-US/cart/'],
+    [`${store}/Search-Show?cgid=chicken`, '/en-US/farm-fresh-chicken/'], [`${store}/Search-Show?q=ham`, '/search?q=ham'], ['/en-US/account', '/en-US/login/'],
   ]) {
     const res = await get(from, { headers: { accept: 'text/html' } });
     assert.ok([301, 302].includes(res.status), `${from} -> ${res.status}`);
@@ -186,6 +188,57 @@ test('no page links to the offline notice for content that exists', async () => 
   // Only genuinely transactional destinations may remain.
   const bad = offenders.filter((o) => !/checkout|payment|billing|shipping|order/i.test(o));
   assert.deepEqual(bad, []);
+});
+
+test('ordering: add to cart, update cart, validate checkout, place order, confirmation', async () => {
+  const store = '/on/demandware.store/Sites-Perdue_US-Site/en_US';
+  let cookie = '';
+  const req = async (p, opts = {}) => {
+    const res = await get(p, { ...opts, headers: { ...(opts.headers || {}), cookie } });
+    const set = res.headers.get('set-cookie'); if (set) cookie = set.split(';')[0];
+    return res;
+  };
+  const form = (body) => ({ method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(body) });
+
+  // unknown product -> error message, no cart
+  assert.equal((await (await req(`${store}/Cart-AddProduct`, form({ pid: 'nope', quantity: '1' }))).json()).error, true);
+  // add a product twice -> quantities merge; response shape matches the site JS
+  const a1 = await (await req(`${store}/Cart-AddProduct`, form({ pid: '25117', quantity: '2' }))).json();
+  assert.equal(a1.error, false); assert.equal(a1.quantityTotal, 2); assert.match(a1.message, /Added 2/);
+  assert.match(cookie, /^pf_cart=[a-f0-9]{32}$/);
+  const a2 = await (await req(`${store}/Cart-AddProduct`, form({ pid: '25117', quantity: '1' }))).json();
+  assert.equal(a2.quantityTotal, 3);
+  assert.equal((await (await req('/api/cart')).json()).count, 3);
+  // quantity is capped and the cart page shows the line
+  await req('/cart/update', form({ pid: '25117', quantity: '999' }));
+  const cartHtml = await (await req('/en-US/cart/')).text();
+  assert.match(cartHtml, /value="20"/);
+  await req('/cart/update', form({ pid: '25117', quantity: '1' }));
+
+  // checkout validation keeps values and reports field errors
+  const bad = await req('/checkout', form({ email: 'jane@example', phone: '123', firstName: 'Jane', lastName: '', address1: 'PO Box 12', city: 'Salisbury', state: 'ZZ', zip: '1' }));
+  assert.equal(bad.status, 422);
+  const badHtml = await bad.text();
+  for (const msg of ['valid email', '10-digit', 'last name', 'P.O. boxes', 'Choose your state', '5-digit ZIP']) assert.match(badHtml, new RegExp(msg));
+  assert.match(badHtml, /value="Salisbury"/);
+
+  // a valid order
+  const ok = await req('/checkout', form({ email: 'Jane@Example.com', phone: '410-555-1234', firstName: 'Jane', lastName: 'Doe', address1: '31149 Old Ocean City Rd', city: 'Salisbury', state: 'MD', zip: '21804', billingSame: 'on', instructions: 'Side door' }));
+  assert.equal(ok.status, 303);
+  const confirmUrl = ok.headers.get('location');
+  assert.match(confirmUrl, /^\/checkout\/confirmation\/PF-\d{6}-[0-9A-F]{6}$/);
+  const confirm = await (await req(confirmUrl)).text();
+  assert.match(confirm, /Thank you, Jane!/);
+  const order = JSON.parse(fs.readFileSync(ORDERS, 'utf8').trim().split('\n').pop());
+  assert.equal(order.customer.email, 'jane@example.com');
+  assert.equal(order.customer.phone, '(410) 555-1234');
+  assert.equal(order.items[0].pid, '25117');
+  assert.equal(order.total, Math.round((order.subtotal + order.shippingCost) * 100) / 100);
+  // cart is emptied and another visitor can't view the confirmation
+  assert.equal((await (await req('/api/cart')).json()).count, 0);
+  assert.equal((await get(confirmUrl)).status, 404);
+  // empty cart -> checkout redirects to the cart
+  assert.equal((await req('/checkout')).status, 303);
 });
 
 test('newsletter sign-up validates, records the submission and answers { success, msg }', async () => {

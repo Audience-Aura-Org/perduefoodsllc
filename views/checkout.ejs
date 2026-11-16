@@ -1,0 +1,153 @@
+<%
+  // field(name, label, opts): labelled input with autocomplete, error message and sticky value
+  const field = (name, label, o = {}) => {
+    const err = errors[name];
+    const id = 'co-' + name;
+    const attrs = [
+      `id="${id}"`, `name="${name}"`, `class="form-control${err ? ' is-invalid' : ''}"`,
+      `type="${o.type || 'text'}"`, o.autocomplete ? `autocomplete="${o.autocomplete}"` : '',
+      o.inputmode ? `inputmode="${o.inputmode}"` : '', o.pattern ? `pattern="${o.pattern}"` : '', o.maxlength ? `maxlength="${o.maxlength}"` : '',
+      o.placeholder ? `placeholder="${o.placeholder}"` : '', o.required ? 'required aria-required="true"' : '', o.min ? `min="${o.min}"` : '',
+      err ? `aria-invalid="true" aria-describedby="${id}-err"` : (o.hint ? `aria-describedby="${id}-hint"` : ''),
+    ].filter(Boolean).join(' ');
+    const val = values[name] == null ? '' : String(values[name]).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    return `<div class="co-field ${o.cls || ''}"><label for="${id}">${label}${o.required ? '' : ' <span class="co-optional">(optional)</span>'}</label>`
+      + `<input ${attrs} value="${val}">`
+      + (o.hint && !err ? `<small id="${id}-hint" class="co-hint">${o.hint}</small>` : '')
+      + (err ? `<small id="${id}-err" class="co-error">${err}</small>` : '') + `</div>`;
+  };
+  const stateSelect = (name, auto) => {
+    const err = errors[name]; const id = 'co-' + name;
+    return `<div class="co-field co-col-state"><label for="${id}">State</label><select id="${id}" name="${name}" class="form-control${err ? ' is-invalid' : ''}" autocomplete="${auto}" required aria-required="true"${err ? ` aria-invalid="true" aria-describedby="${id}-err"` : ''}>`
+      + `<option value="">Choose…</option>` + states.map(([c, n]) => `<option value="${c}"${values[name] === c ? ' selected' : ''}>${n}</option>`).join('')
+      + `</select>${err ? `<small id="${id}-err" class="co-error">${err}</small>` : ''}</div>`;
+  };
+  const errorCount = Object.keys(errors).length;
+%>
+<%- include('/partials/document-start', { title, action: 'Checkout-Begin' }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container shop-page checkout-page">
+    <h1 class="offline-title">Checkout</h1>
+
+    <% if (errorCount) { %>
+      <div class="co-summary" role="alert" tabindex="-1" id="co-error-summary">
+        <strong>Please fix <%= errorCount === 1 ? 'this' : 'these ' + errorCount %> to place your order:</strong>
+        <ul><% for (const [k, msg] of Object.entries(errors)) { %><li><a href="#co-<%= k %>"><%= msg %></a></li><% } %></ul>
+      </div>
+    <% } %>
+
+    <div class="shop-layout">
+      <form class="shop-main co-form" action="/checkout" method="post" novalidate>
+        <fieldset>
+          <legend><span class="co-step">1</span> Contact</legend>
+          <div class="co-row">
+            <%- field('email', 'Email', { type: 'email', autocomplete: 'email', inputmode: 'email', required: true, hint: 'Your order confirmation is sent here.', cls: 'co-col-wide' }) %>
+            <%- field('phone', 'Phone', { type: 'tel', autocomplete: 'tel-national', inputmode: 'tel', required: true, placeholder: '(555) 555-5555', hint: 'For delivery questions only.', maxlength: 20 }) %>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="co-step">2</span> Delivery address</legend>
+          <div class="co-row">
+            <%- field('firstName', 'First name', { autocomplete: 'shipping given-name', required: true }) %>
+            <%- field('lastName', 'Last name', { autocomplete: 'shipping family-name', required: true }) %>
+          </div>
+          <%- field('address1', 'Street address', { autocomplete: 'shipping address-line1', required: true, placeholder: '123 Main St', hint: 'Frozen orders can’t ship to P.O. boxes.' }) %>
+          <%- field('address2', 'Apartment, suite, unit', { autocomplete: 'shipping address-line2' }) %>
+          <%- field('company', 'Company', { autocomplete: 'shipping organization' }) %>
+          <div class="co-row co-row-3">
+            <%- field('city', 'City', { autocomplete: 'shipping address-level2', required: true }) %>
+            <%- stateSelect('state', 'shipping address-level1') %>
+            <%- field('zip', 'ZIP code', { autocomplete: 'shipping postal-code', inputmode: 'numeric', pattern: '[0-9]{5}(-[0-9]{4})?', maxlength: 10, required: true, cls: 'co-col-zip' }) %>
+          </div>
+
+          <label class="co-check"><input type="checkbox" name="billingSame" id="co-billingSame" <%= values.billingSame ? 'checked' : '' %>> Billing address is the same as delivery</label>
+          <div class="co-billing" id="co-billing" <%= values.billingSame ? 'hidden' : '' %>>
+            <div class="co-row">
+              <%- field('billingFirstName', 'Billing first name', { autocomplete: 'billing given-name', required: true }) %>
+              <%- field('billingLastName', 'Billing last name', { autocomplete: 'billing family-name', required: true }) %>
+            </div>
+            <%- field('billingAddress1', 'Billing street address', { autocomplete: 'billing address-line1', required: true }) %>
+            <%- field('billingAddress2', 'Apartment, suite, unit', { autocomplete: 'billing address-line2' }) %>
+            <div class="co-row co-row-3">
+              <%- field('billingCity', 'City', { autocomplete: 'billing address-level2', required: true }) %>
+              <%- stateSelect('billingState', 'billing address-level1') %>
+              <%- field('billingZip', 'ZIP code', { autocomplete: 'billing postal-code', inputmode: 'numeric', pattern: '[0-9]{5}(-[0-9]{4})?', maxlength: 10, required: true, cls: 'co-col-zip' }) %>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="co-step">3</span> Delivery options</legend>
+          <%- field('deliveryDate', 'Preferred delivery date', { type: 'date', min: minDate, hint: 'Leave blank for the earliest available delivery.' }) %>
+          <div class="co-field">
+            <label for="co-instructions">Delivery instructions <span class="co-optional">(optional)</span></label>
+            <textarea id="co-instructions" name="instructions" class="form-control" rows="2" maxlength="500" placeholder="Gate code, leave at back door, …"><%= values.instructions || '' %></textarea>
+          </div>
+          <label class="co-check"><input type="checkbox" name="isGift" id="co-isGift" <%= values.isGift ? 'checked' : '' %>> This order is a gift</label>
+          <div class="co-field" id="co-gift" <%= values.isGift ? '' : 'hidden' %>>
+            <label for="co-giftMessage">Gift message <span class="co-optional">(optional)</span></label>
+            <textarea id="co-giftMessage" name="giftMessage" class="form-control" rows="2" maxlength="300"><%= values.giftMessage || '' %></textarea>
+          </div>
+          <label class="co-check"><input type="checkbox" name="marketing" <%= values.marketing ? 'checked' : '' %>> Email me exclusive offers, new products and recipes</label>
+        </fieldset>
+
+        <div class="co-payment">
+          <strong>Payment</strong>
+          <p><%= shop.paymentNote %></p>
+        </div>
+
+        <!-- spam trap: real visitors never see or fill this -->
+        <div class="co-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <button class="btn btn-primary btn-block shop-cta" type="submit">Place order · <%= money(cart.total) %></button>
+        <p class="co-fineprint">By placing your order you agree to the <a href="/en-US/perdue-farms-sale-terms/terms-and-conditions-page.html">terms and conditions of sale</a>.</p>
+      </form>
+
+      <aside class="shop-summary" aria-label="Order summary">
+        <h2>Your order</h2>
+        <ul class="co-items">
+          <% for (const l of cart.lines) { %>
+            <li><img src="<%= l.product.image %>" alt=""><span><%= l.product.name %><small>Qty <%= l.qty %></small></span><b><%= money(l.total) %></b></li>
+          <% } %>
+        </ul>
+        <dl>
+          <dt>Subtotal</dt><dd><%= money(cart.subtotal) %></dd>
+          <dt>Shipping</dt><dd><%= cart.shipping ? money(cart.shipping) : 'FREE' %></dd>
+          <dt class="shop-total">Total</dt><dd class="shop-total"><%= money(cart.total) %></dd>
+        </dl>
+        <a class="shop-continue" href="/en-US/cart/">Edit cart</a>
+      </aside>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    var same = document.getElementById('co-billingSame'), billing = document.getElementById('co-billing');
+    var gift = document.getElementById('co-isGift'), giftBox = document.getElementById('co-gift');
+    function sync() {
+      billing.hidden = same.checked;
+      billing.querySelectorAll('input,select').forEach(function (el) { el.disabled = same.checked; });
+      giftBox.hidden = !gift.checked;
+    }
+    same.addEventListener('change', sync); gift.addEventListener('change', sync); sync();
+    // format US phone numbers as the visitor types: (555) 555-5555
+    var phone = document.getElementById('co-phone');
+    phone.addEventListener('input', function () {
+      var d = phone.value.replace(/\D/g, '').replace(/^1(?=\d{10})/, '').slice(0, 10);
+      if (d.length > 6) phone.value = '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+      else if (d.length > 3) phone.value = '(' + d.slice(0, 3) + ') ' + d.slice(3);
+    });
+    var summary = document.getElementById('co-error-summary');
+    if (summary) summary.focus();
+    // prevent double submission
+    document.querySelector('.co-form').addEventListener('submit', function (e) {
+      var btn = this.querySelector('button[type=submit]');
+      if (btn.disabled) { e.preventDefault(); return; }
+      btn.disabled = true; btn.textContent = 'Placing order…';
+    });
+  })();
+</script>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>

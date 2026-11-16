@@ -7,6 +7,14 @@
  */
 (function () {
   if (!window.jQuery) return;
+
+  // Header cart badge: show the visitor's real item count (pages are rendered without it).
+  jQuery.getJSON('/api/cart').done(function (cart) {
+    var n = cart && cart.count || 0;
+    var label = 'My Cart, ' + n + ' Item' + (n === 1 ? '' : 's');
+    jQuery('.minicart .minicart-quantity').text(n).toggleClass('d-none', n === 0);
+    jQuery('.minicart .minicart-link').attr({ title: label, 'aria-label': label });
+  });
   jQuery(document).ajaxSuccess(function (event, xhr, settings) {
     if (!/Search-ShowAjax/.test(settings.url || '')) return;
     var match = /class="permalink" value="([^"]*)"/.exec(xhr.responseText || '');

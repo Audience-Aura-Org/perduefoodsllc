@@ -7,12 +7,11 @@ import { parseState, hasFilters } from './refinements.js';
  * site's client JavaScript (main.js, productDetail.js, search.js) calls.
  *
  * Read-only features (search suggestions, category filters and sorting) are answered from
- * local data. Ordering features return the error shape the front-end already displays, so
- * users get a clear message instead of a broken spinner. Form posts (newsletter, ambassador
- * program) are handled by forms.js, which is mounted before this router.
+ * local data. The cart lives in shop.js and form posts in forms.js; both are mounted before
+ * this router.
  */
 
-const OFFLINE_MESSAGE = 'Ordering is not available on this offline copy of Perdue Farms.';
+const SIGN_IN_MESSAGE = 'Accounts aren’t available on this site. You can check out as a guest: add items to your cart and choose Checkout.';
 
 /** @param {string} s */
 export const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -71,15 +70,12 @@ export function storeApi({ registry, search, refinements, renderPage }) {
     } catch (err) { next(err); }
   });
 
-  router.get('/Cart-MiniCartShow', (req, res) => res.type('html').send(
-    '<div class="container cart"><div class="row"><div class="col-12 text-center py-3">Your cart is empty. Ordering is not available on this offline copy.</div></div></div>'));
-  router.all('/Cart-AddProduct', (req, res) => res.json({ error: true, message: OFFLINE_MESSAGE, quantityTotal: 0, minicartCountOfItems: 'Cart 0 items' }));
   // Variant/quantity re-pricing needs the commerce back end. Answer with an error status so
   // the client takes its error path (stops the spinner, keeps the server-rendered product).
-  router.all('/Product-Variation', (req, res) => res.status(503).json({ error: true, offline: true, message: OFFLINE_MESSAGE }));
+  router.all('/Product-Variation', (req, res) => res.status(503).json({ error: true, offline: true, message: 'Live price updates are not available; the listed price applies.' }));
   // Login / account forms post here; there is no account system offline.
   router.post(/^\/(Account-Login|Account-SubmitRegistration|Account-PasswordResetDialogForm)$/, (req, res) =>
-    res.json({ success: false, error: [OFFLINE_MESSAGE.replace('Ordering', 'Signing in')], msg: OFFLINE_MESSAGE.replace('Ordering', 'Signing in') }));
+    res.json({ success: false, error: [SIGN_IN_MESSAGE], msg: SIGN_IN_MESSAGE }));
   router.post('/Order-Track', (req, res) => res.redirect(303, '/offline?from=' + encodeURIComponent('Order tracking')));
 
   // Links that use controller URLs instead of page URLs (e.g. …/ContactUs-Show): redirect to
@@ -91,7 +87,7 @@ export function storeApi({ registry, search, refinements, renderPage }) {
   };
   router.get('/:action', (req, res, next) => {
     const { action } = req.params;
-    const exists = (route) => route && registry.find(route.split('?')[0]);
+    const exists = (route) => route && (route === '/en-US/cart/' || registry.find(route.split('?')[0]));
     if (SHOW_ROUTES[action] && exists(SHOW_ROUTES[action])) return res.redirect(302, SHOW_ROUTES[action]);
     if (action === 'Search-Show') {
       if (req.query.q) return res.redirect(302, '/search?q=' + encodeURIComponent(String(req.query.q)));

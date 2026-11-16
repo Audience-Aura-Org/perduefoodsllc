@@ -1,0 +1,56 @@
+<%- include('/partials/document-start', { title, action: 'Cart-Show' }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container shop-page">
+    <h1 class="offline-title">Your Cart</h1>
+
+    <% if (!cart.count) { %>
+      <div class="shop-empty">
+        <p>Your cart is empty.</p>
+        <p class="offline-actions"><a class="btn btn-primary" href="/en-US/farm-fresh-chicken/">Shop chicken</a><a class="btn btn-outline-primary" href="/en-US/meats-seafood/">Shop meats &amp; seafood</a></p>
+      </div>
+    <% } else { %>
+      <div class="shop-layout">
+        <section class="shop-main" aria-label="Items in your cart">
+          <% if (cart.toFreeShipping) { %>
+            <p class="shop-banner">You’re <strong><%= money(cart.toFreeShipping) %></strong> away from <strong>free shipping</strong> (orders over <%= money(shop.freeShippingMin) %>).</p>
+          <% } else { %>
+            <p class="shop-banner shop-banner--ok">Your order ships <strong>free</strong>.</p>
+          <% } %>
+          <ul class="cart-lines">
+            <% for (const l of cart.lines) { %>
+              <li class="cart-line">
+                <a class="cart-line__img" href="<%= l.product.url %>"><img src="<%= l.product.image %>" alt="" loading="lazy"></a>
+                <div class="cart-line__info">
+                  <a class="cart-line__name" href="<%= l.product.url %>"><%= l.product.name %></a>
+                  <span class="cart-line__unit"><%= money(l.product.price) %> each<% if (l.product.listPrice) { %> <s><%= money(l.product.listPrice) %></s><% } %></span>
+                  <form class="cart-line__qty" action="/cart/update" method="post">
+                    <input type="hidden" name="pid" value="<%= l.pid %>">
+                    <label for="qty-<%= l.pid %>">Qty</label>
+                    <input id="qty-<%= l.pid %>" class="form-control" type="number" name="quantity" value="<%= l.qty %>" min="0" max="<%= shop.maxQtyPerItem %>" inputmode="numeric" onchange="this.form.submit()">
+                    <button class="btn btn-link" type="submit">Update</button>
+                    <button class="btn btn-link cart-line__remove" type="submit" name="remove" value="1" aria-label="Remove <%= l.product.name %>">Remove</button>
+                  </form>
+                </div>
+                <div class="cart-line__total"><%= money(l.total) %></div>
+              </li>
+            <% } %>
+          </ul>
+        </section>
+
+        <aside class="shop-summary" aria-label="Order summary">
+          <h2>Order summary</h2>
+          <dl>
+            <dt>Subtotal (<%= cart.count %> item<%= cart.count === 1 ? '' : 's' %>)</dt><dd><%= money(cart.subtotal) %></dd>
+            <dt>Shipping</dt><dd><%= cart.shipping ? money(cart.shipping) : 'FREE' %></dd>
+            <dt class="shop-total">Total</dt><dd class="shop-total"><%= money(cart.total) %></dd>
+          </dl>
+          <a class="btn btn-primary btn-block shop-cta" href="/checkout">Checkout</a>
+          <a class="shop-continue" href="/">Continue shopping</a>
+        </aside>
+      </div>
+    <% } %>
+  </div>
+</div>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>
