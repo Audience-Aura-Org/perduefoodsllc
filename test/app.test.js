@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import http from 'node:http';
 import { fileURLToPath } from 'node:url';
 
 // Tests must never send real email or touch the real submissions log: blank the SMTP
@@ -280,9 +281,39 @@ test('static assets are served with cache headers', async () => {
   const css = await get('/css/global.css');
   assert.equal(css.status, 200);
   assert.match(css.headers.get('content-type'), /text\/css/);
+  assert.match(css.headers.get('cache-control'), /max-age=86400/);
   const img = await get('/images/missing.svg');
   assert.equal(img.status, 200);
-  assert.match(img.headers.get('cache-control'), /max-age=604800/);
+  assert.match(img.headers.get('cache-control'), /max-age=2592000/);
+});
+
+test('pages are served pre-compressed from the page cache with ETag revalidation', async () => {
+  const first = await get('/en-US/farm-fresh-chicken/', { headers: { 'accept-encoding': 'br' } });
+  assert.equal(first.status, 200);
+  assert.equal(first.headers.get('content-encoding'), 'br');
+  assert.match(first.headers.get('cache-control'), /public, max-age=300/);
+  const etag = first.headers.get('etag');
+  assert.ok(etag);
+  // (fetch() adds "Cache-Control: no-cache" to conditional requests, so use plain http like a browser revalidation)
+  const status = await new Promise((resolve, reject) => {
+    http.get(base + '/en-US/farm-fresh-chicken/', { headers: { 'if-none-match': etag, 'accept-encoding': 'br' } }, (res) => { res.resume(); resolve(res.statusCode); }).on('error', reject);
+  });
+  assert.equal(status, 304);
+  const gz = await get('/', { headers: { 'accept-encoding': 'gzip' } });
+  assert.equal(gz.headers.get('content-encoding'), 'gzip');
+  // cart, checkout and search must never be cached
+  assert.match((await get('/en-US/cart/')).headers.get('cache-control'), /no-store/);
+});
+
+test('WhatsApp button and new contact details appear site-wide', async () => {
+  for (const route of ['/', '/en-US/contact-us/', '/en-US/cart/', '/search?q=ham']) {
+    const html = await (await get(route)).text();
+    assert.match(html, /class="wa-float" href="https:\/\/wa\.me\/12088181707/, route);
+  }
+  const home = await (await get('/')).text();
+  assert.match(home, /href="tel:\+12088181707"/);
+  assert.match(home, /mailto:info@perduefoodsllc\.com/);
+  assert.doesNotMatch(home, /1-800-4-PERDUE|1-800-473-7383/);
 });
 
 // Full crawl: every page renders, and every local asset and internal link it references resolves.

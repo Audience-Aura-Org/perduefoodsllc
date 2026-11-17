@@ -9,7 +9,14 @@ import { formHandlers } from './forms.js';
 import { RefinementEngine, parseState, hasFilters } from './refinements.js';
 import { Catalog } from './catalog.js';
 import { shop } from './shop.js';
+import { PageCache } from './page-cache.js';
 const SEARCH_TYPES = ['Product', 'Recipe', 'Category', 'Recipe collection', 'Page'];
+
+// Browser / CDN caching. Captured pages are the same for every visitor (the cart badge is
+// fetched from /api/cart), so the CDN may cache them briefly and serve stale while refreshing.
+const CACHE_PAGE = 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400';
+const CACHE_CSS_JS = 'public, max-age=86400, stale-while-revalidate=604800';
+const CACHE_MEDIA = 'public, max-age=2592000, stale-while-revalidate=604800';
 
 /**
  * Build the Express application.
@@ -23,17 +30,37 @@ export function createApp({ root = ROOT, production = config.production } = {}) 
   const catalog = new Catalog(registry, viewsDir);
   const commerce = shop({ catalog });
 
-  // Rendered category pages are the input for filtering and sorting; cache them in production.
+  const app = express();
+  const renderView = (view) => new Promise((resolve, reject) => app.render(view, (err, html) => (err ? reject(err) : resolve(html))));
+
+  // Raw HTML of category pages is the input for filtering and sorting. Keep a small LRU of
+  // them in production (each is ~1 MB uncompressed).
   /** @type {Map<string, Promise<string>>} */
   const rendered = new Map();
+  const RENDERED_MAX = 40;
   const renderPage = (req, page) => {
-    if (production && rendered.has(page.route)) return rendered.get(page.route);
-    const p = new Promise((resolve, reject) => req.app.render(page.view, (err, html) => (err ? reject(err) : resolve(html))));
-    if (production) { rendered.set(page.route, p); p.catch(() => rendered.delete(page.route)); }
+    if (production && rendered.has(page.route)) {
+      const hit = rendered.get(page.route);
+      rendered.delete(page.route); rendered.set(page.route, hit); // refresh LRU position
+      return hit;
+    }
+    const p = renderView(page.view);
+    if (production) {
+      rendered.set(page.route, p);
+      p.catch(() => rendered.delete(page.route));
+      if (rendered.size > RENDERED_MAX) rendered.delete(rendered.keys().next().value);
+    }
     return p;
   };
 
-  const app = express();
+  // Fully rendered, pre-compressed pages (production only).
+  const pageCache = new PageCache();
+  app.locals.pageCache = pageCache;
+  if (production) {
+    // Warm the most visited pages in the background so first visits are fast too.
+    const hot = registry.pages.filter((p) => p.route === '/' || p.type === 'Category' || /^\/en-US\/(recipes|contact-us|our-farms)\//.test(p.route)).map((p) => p.route);
+    setTimeout(() => pageCache.warm(hot, (route) => renderView(registry.find(route).view)), 2000).unref();
+  }
   app.disable('x-powered-by');
   app.set('trust proxy', 'loopback');
   app.set('view engine', 'ejs');
@@ -50,14 +77,13 @@ export function createApp({ root = ROOT, production = config.production } = {}) 
     next();
   });
 
-  // Static assets. Images, fonts and files never change in place, so cache them for a week;
-  // CSS/JS are edited by hand, so let browsers revalidate them.
+  // Static assets: images, fonts and files for 30 days; CSS/JS for a day (edits reach
+  // visitors within a day; browsers serve the cached copy instantly in between).
   app.use(express.static(path.join(root, 'public'), {
     index: false,
     redirect: false,
     setHeaders(res, filePath) {
-      const long = /[\\/](images|fonts|files)[\\/]/.test(filePath);
-      res.set('Cache-Control', long ? 'public, max-age=604800' : 'no-cache');
+      res.set('Cache-Control', /[\\/](images|fonts|files)[\\/]/.test(filePath) ? CACHE_MEDIA : CACHE_CSS_JS);
     },
   }));
 
@@ -111,15 +137,17 @@ export function createApp({ root = ROOT, production = config.production } = {}) 
   app.get('*', async (req, res, next) => {
     const page = registry.find(req.path);
     if (page) {
-      res.set('Cache-Control', 'no-cache');
       // Category URLs with filter/sort parameters (shared links, refresh, back button).
       if (page.cgid) {
         const state = parseState(req.query, page.cgid);
         if (hasFilters(state) || state.srule) {
+          res.set('Cache-Control', 'no-cache');
           try { return res.type('html').send(refinements.apply(await renderPage(req, page), state, page.route)); } catch (err) { return next(err); }
         }
       }
-      return res.render(page.view);
+      if (!production) { res.set('Cache-Control', 'no-cache'); return res.render(page.view); }
+      res.set('Cache-Control', CACHE_PAGE);
+      try { return await pageCache.send(req, res, await pageCache.get(page.route, () => renderView(page.view))); } catch (err) { return next(err); }
     }
     const target = registry.redirectFor(req.path);
     if (target) {

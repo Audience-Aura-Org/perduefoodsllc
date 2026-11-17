@@ -158,3 +158,20 @@ In production mode, restart the server after editing templates.
 - Images that are broken on the live site show `public/images/missing.svg`.
 - Some hero images are full-resolution originals (up to 15 MB), because the live site's resizer
   refused those sizes. Compressing them would speed up those pages.
+
+## Performance
+
+- **Page cache:** in production each page is rendered once, kept in memory pre-compressed
+  (Brotli and gzip), and served with an `ETag`, so repeat visits get `304 Not Modified`. The most
+  visited pages are warmed in the background at startup. Restart the server after editing templates.
+- **Browser/CDN caching:** pages are cacheable for 5 minutes (CDN 10 minutes, stale-while-revalidate),
+  CSS/JS for 1 day, and images, fonts and files for 30 days. Cart, checkout, search and order
+  pages are never cached.
+- **Images:** `npm run images:optimize` shrinks anything over 2000 px and recompresses JPEG/PNG
+  in place (same file names). Run it after adding new images. Use `-- --dry` to preview savings.
+
+## Contact details
+
+Phone and WhatsApp: **+1 (208) 818-1707**; email: **info@perduefoodsllc.com**. They appear in the
+footer of every page, on the Contact Us, Help, FAQ, privacy, terms and accessibility pages, and
+in the floating WhatsApp button (`views/partials/footer.ejs`).
