@@ -1,0 +1,86 @@
+/* Shared UI components used across the site (homepage, shop pages, captured page types).
+   Tokens come from theme.css (:root --th-*). Markup lives in views/partials/components/.
+
+   .pf-eyebrow          small amber uppercase label above a heading
+   .pf-section-head     centred eyebrow + .pf-section-title with an amber rule
+   .pf-btn              pill button: --accent (amber), --primary (forest), --outline, --ghost (on dark)
+   .pf-card             white rounded card with soft shadow (--hover lifts on hover)
+   .pf-chip             small rounded label / tag
+   .pf-perks            row of benefit items with round icons (--band: full-width band variant)
+   .pf-steps            numbered list with amber number circles */
+
+:root {
+  --pf-r-sm: 8px;
+  --pf-r-md: 14px;
+  --pf-r-lg: 18px;
+  --pf-elev-1: 0 1px 2px rgba(42, 38, 34, .06), 0 4px 14px rgba(42, 38, 34, .07);
+  --pf-elev-2: 0 10px 30px rgba(42, 38, 34, .1);
+  --pf-elev-hover: 0 16px 36px rgba(31, 77, 58, .18);
+  --pf-serif: "Libre Caslon Text", Georgia, serif;
+  --pf-sans: "Josefin Sans", sans-serif;
+}
+
+/* ---------- Typography ---------- */
+.pf-eyebrow { margin: 0 0 .6rem; color: var(--th-amber-dark, #c4762a); font-family: var(--pf-sans); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; }
+.pf-section-head { text-align: center; margin: 64px auto 28px; }
+.pf-section-head--left { text-align: left; }
+.pf-section-title { margin: 0; font-family: var(--pf-serif); font-weight: 400; color: var(--th-forest, #1f4d3a); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.15; }
+.pf-section-title::after { content: ""; display: block; width: 48px; height: 3px; margin: 16px auto 0; background: var(--th-amber, #e0913a); border-radius: 2px; }
+.pf-section-head--left .pf-section-title::after { margin-left: 0; }
+
+/* ---------- Buttons ---------- */
+.pf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 30px; border-radius: 999px; border: 2px solid transparent; font-family: var(--pf-sans); font-weight: 700; font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; text-decoration: none !important; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .15s, box-shadow .2s; }
+.pf-btn:hover { transform: translateY(-2px); }
+.pf-btn--sm { min-height: 40px; padding: 0 20px; font-size: .85rem; }
+.pf-btn--accent { background: var(--th-amber, #e0913a); color: var(--th-forest-ink, #0f2a1f) !important; box-shadow: 0 6px 18px rgba(224, 145, 58, .35); }
+.pf-btn--accent:hover { background: var(--th-amber-dark, #c4762a); color: #fff !important; }
+.pf-btn--primary { background: var(--th-forest, #1f4d3a); color: #fff !important; }
+.pf-btn--primary:hover { background: var(--th-forest-dark, #163a2b); box-shadow: 0 6px 18px rgba(31, 77, 58, .3); }
+.pf-btn--outline { border-color: var(--th-forest, #1f4d3a); color: var(--th-forest, #1f4d3a) !important; }
+.pf-btn--outline:hover { background: var(--th-forest, #1f4d3a); color: #fff !important; }
+.pf-btn--ghost { border-color: rgba(255, 255, 255, .55); color: #fff !important; }
+.pf-btn--ghost:hover { border-color: #fff; background: rgba(255, 255, 255, .1); }
+.pf-hero .pf-btn--accent:hover { background: #fff; color: var(--th-forest-ink, #0f2a1f) !important; }
+
+/* ---------- Cards & chips ---------- */
+.pf-card { background: #fff; border-radius: var(--pf-r-lg); box-shadow: var(--pf-elev-1); }
+.pf-card--hover { transition: transform .3s, box-shadow .3s; }
+.pf-card--hover:hover { transform: translateY(-4px); box-shadow: var(--pf-elev-hover); }
+.pf-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px 2px; border-radius: 999px; background: #fbeedb; color: var(--th-forest, #1f4d3a); font-family: var(--pf-sans); font-weight: 700; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+
+/* ---------- Perks strip ---------- */
+.pf-perks { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; margin: 0 auto; padding: 0; max-width: 1240px; background: #fff; border-radius: var(--pf-r-md); box-shadow: var(--pf-elev-2); }
+.pf-perks li { display: flex; align-items: center; gap: 14px; padding: 22px 24px; font-size: .95rem; line-height: 1.35; color: #4a443c; }
+.pf-perks li + li { border-left: 1px solid #efe6d6; }
+.pf-perks strong { display: block; color: var(--th-forest, #1f4d3a); font-size: 1rem; }
+.pf-perks svg { flex: 0 0 40px; width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: #fbeedb; fill: none; stroke: var(--th-amber-dark, #c4762a); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pf-perks--overlap { margin-top: -32px; }
+/* full-width band above the footer */
+.pf-perks-band { background: #efe6d6; padding: 40px 15px; margin-top: 64px; }
+.pf-perks-band .pf-perks { box-shadow: none; background: transparent; }
+.pf-perks-band .pf-perks li + li { border-left-color: rgba(31, 77, 58, .12); }
+.pf-perks-band .pf-perks svg { background: #fff; }
+.pf-perks-band + #footercontent { margin-top: 0 !important; }
+
+/* ---------- Numbered steps ---------- */
+.pf-steps { counter-reset: pf-step; list-style: none; padding: 0; margin: 0; }
+.pf-steps > li { position: relative; counter-increment: pf-step; padding: 0 0 24px 64px; }
+.pf-steps > li::before { content: counter(pf-step); position: absolute; left: 0; top: -4px; width: 44px; height: 44px; border-radius: 50%; background: var(--th-amber, #e0913a); color: var(--th-forest-ink, #0f2a1f); font-family: var(--pf-serif); font-size: 1.25rem; display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 1023px) {
+  .pf-perks { grid-template-columns: repeat(2, 1fr); }
+  .pf-perks--overlap { margin-left: 15px; margin-right: 15px; }
+  .pf-perks li:nth-child(3) { border-left: 0; }
+  .pf-perks li:nth-child(n + 3) { border-top: 1px solid #efe6d6; }
+}
+@media (max-width: 575px) {
+  .pf-section-head { margin-top: 48px; }
+  .pf-perks { grid-template-columns: 1fr; }
+  .pf-perks li + li { border-left: 0; border-top: 1px solid #efe6d6; }
+  .pf-perks li { padding: 16px 18px; }
+  .pf-perks-band { padding: 24px 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-btn, .pf-card--hover { transition: none; }
+  .pf-btn:hover, .pf-card--hover:hover { transform: none; }
+}

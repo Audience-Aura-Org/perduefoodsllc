@@ -1,0 +1,9 @@
+<%#
+  Section heading: eyebrow + serif title with an amber rule.
+  locals: title (required), eyebrow, id, tag ('h2'), align ('center' | 'left'), cls
+%>
+<% const _tag = locals.tag || 'h2'; %>
+<div class="pf-section-head<%= locals.align === 'left' ? ' pf-section-head--left' : '' %><%= locals.cls ? ' ' + locals.cls : '' %>">
+  <% if (locals.eyebrow) { %><p class="pf-eyebrow"><%= eyebrow %></p><% } %>
+  <<%= _tag %><% if (locals.id) { %> id="<%= id %>"<% } %> class="pf-section-title"><%- title %></<%= _tag %>>
+</div>

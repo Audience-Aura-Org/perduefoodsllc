@@ -1,14 +1,14 @@
-<%# Homepage intro: welcome hero, benefits strip and shop-by-category row. Styles in /css/home.css. %>
+<%# Homepage intro: welcome hero, perks strip and shop-by-category row. Page styles in /css/home.css; shared pieces in /css/components.css. %>
 <link rel="stylesheet" href="/css/home.css" />
-<section class="hp-hero" aria-labelledby="hp-hero-title">
+<section class="pf-hero hp-hero" aria-labelledby="hp-hero-title">
   <div class="container hp-hero__inner">
     <div class="hp-hero__copy">
-      <p class="hp-eyebrow">A family of farmers since 1920</p>
+      <p class="pf-eyebrow">A family of farmers since 1920</p>
       <h1 id="hp-hero-title" class="hp-hero__title">Farm-raised favorites, <em>delivered to your door</em></h1>
       <p class="hp-hero__lead">Premium chicken, turkey, pork, beef and seafood from our family of farms, plus hundreds of recipes that make dinner easy.</p>
       <div class="hp-hero__ctas">
-        <a class="hp-btn hp-btn--accent" href="/en-US/farm-fresh-chicken/">Shop chicken</a>
-        <a class="hp-btn hp-btn--ghost" href="/en-US/recipes/">Explore recipes</a>
+        <a class="pf-btn pf-btn--accent" href="/en-US/farm-fresh-chicken/">Shop chicken</a>
+        <a class="pf-btn pf-btn--ghost" href="/en-US/recipes/">Explore recipes</a>
       </div>
     </div>
     <div class="hp-hero__media">
@@ -18,18 +18,10 @@
   </div>
 </section>
 
-<ul class="hp-perks container" aria-label="Why shop with us">
-  <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span><strong>Free shipping</strong> on orders over $159.99</span></li>
-  <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><span><strong>Family farms</strong> raising food since 1920</span></li>
-  <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c4 3 6 6 6 9a6 6 0 0 1-12 0c0-3 2-6 6-9z"/><path d="M12 9v9"/></svg><span><strong>No antibiotics ever</strong> on our chicken</span></li>
-  <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span><strong>260+ recipes</strong> for every night</span></li>
-</ul>
+<%- include('/partials/components/perks', { variant: 'overlap' }) %>
 
 <section class="hp-cats container" aria-labelledby="hp-cats-title">
-  <div class="hp-section-head">
-    <p class="hp-eyebrow">Shop by category</p>
-    <h2 id="hp-cats-title" class="hp-section-title">What’s for dinner?</h2>
-  </div>
+  <%- include('/partials/components/section-head', { eyebrow: 'Shop by category', title: 'What’s for dinner?', id: 'hp-cats-title' }) %>
   <ul class="hp-cats__list">
     <% for (const [label, href, img] of [
       ['Chicken', '/en-US/farm-fresh-chicken/', '/images/products/60420_perdue_fresh_cuts_diced_chicken_breasts_2_ckd_hero_500x500.jpg'],
@@ -44,7 +36,4 @@
   </ul>
 </section>
 
-<div class="hp-section-head hp-section-head--deals container">
-  <p class="hp-eyebrow">This week</p>
-  <h2 class="hp-section-title">Deals &amp; seasonal favorites</h2>
-</div>
+<%- include('/partials/components/section-head', { eyebrow: 'This week', title: 'Deals &amp; seasonal favorites', cls: 'container hp-deals-head' }) %>

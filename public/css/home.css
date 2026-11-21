@@ -1,19 +1,7 @@
-/* Homepage look: welcome hero, perks strip, category row, and restyled captured sections.
+/* Homepage look: welcome hero, category row, and restyled captured sections.
    Uses the theme tokens from theme.css (forest / amber / cream). Loaded only on the homepage. */
 
-.hp-eyebrow { margin: 0 0 .6rem; color: var(--th-amber-dark, #c4762a); font-family: "Josefin Sans", sans-serif; font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; }
-.hp-section-head { text-align: center; margin: 64px auto 28px; }
-.hp-section-title { margin: 0; font-family: "Libre Caslon Text", Georgia, serif; font-weight: 400; color: var(--th-forest, #1f4d3a); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.15; }
-.hp-section-title::after { content: ""; display: block; width: 48px; height: 3px; margin: 16px auto 0; background: var(--th-amber, #e0913a); border-radius: 2px; }
-.hp-section-head--deals { margin-bottom: 20px; }
 
-/* ---------- Buttons ---------- */
-.hp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 30px; border-radius: 999px; border: 2px solid transparent; font-family: "Josefin Sans", sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; text-decoration: none !important; transition: background .2s, color .2s, border-color .2s, transform .15s, box-shadow .2s; }
-.hp-btn:hover { transform: translateY(-2px); }
-.hp-btn--accent { background: var(--th-amber, #e0913a); color: var(--th-forest-ink, #0f2a1f) !important; box-shadow: 0 6px 18px rgba(224, 145, 58, .35); }
-.hp-btn--accent:hover { background: #fff; }
-.hp-btn--ghost { border-color: rgba(255, 255, 255, .55); color: #fff !important; }
-.hp-btn--ghost:hover { border-color: #fff; background: rgba(255, 255, 255, .1); }
 
 /* ---------- Hero ---------- */
 .hp-hero { position: relative; overflow: hidden; background: var(--th-forest, #1f4d3a); color: #f4efe4; }
@@ -22,7 +10,7 @@
   background: repeating-linear-gradient(115deg, #fff 0 2px, transparent 2px 22px);
 }
 .hp-hero__inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: 56px; padding-top: 64px; padding-bottom: 64px; max-width: 1270px; }
-.hp-hero .hp-eyebrow { color: var(--th-amber, #e0913a); }
+.hp-hero .pf-eyebrow { color: var(--th-amber, #e0913a); }
 .hp-hero__title { margin: 0 0 20px; font-family: "Libre Caslon Text", Georgia, serif; font-weight: 400; color: #fff; font-size: clamp(2.1rem, 1.3rem + 2.6vw, 3.4rem); line-height: 1.1; letter-spacing: -.01em; }
 .hp-hero__title em { display: block; font-style: italic; color: var(--th-amber, #e0913a); }
 .hp-hero__lead { max-width: 30em; margin: 0 0 32px; font-size: 1.15rem; line-height: 1.65; color: rgba(244, 239, 228, .88); }
@@ -34,15 +22,10 @@
 .hp-hero__badge strong { font-family: "Libre Caslon Text", Georgia, serif; font-weight: 400; font-size: 1.4rem; line-height: 1.1; }
 .hp-hero__badge span { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--th-amber-dark, #c4762a); }
 
-/* ---------- Perks strip ---------- */
-.hp-perks { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; list-style: none; margin: -32px auto 0; padding: 0; max-width: 1240px; background: #fff; border-radius: 14px; box-shadow: 0 10px 30px rgba(42, 38, 34, .1); }
-.hp-perks li { display: flex; align-items: center; gap: 14px; padding: 22px 24px; font-size: .95rem; line-height: 1.35; color: #4a443c; }
-.hp-perks li + li { border-left: 1px solid #efe6d6; }
-.hp-perks strong { display: block; color: var(--th-forest, #1f4d3a); font-size: 1rem; }
-.hp-perks svg { flex: 0 0 40px; width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: #fbeedb; fill: none; stroke: var(--th-amber-dark, #c4762a); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---------- Shop by category ---------- */
 .hp-cats { max-width: 1270px; }
+.hp-deals-head { margin-bottom: 20px; }
 .hp-cats__list { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; list-style: none; margin: 0; padding: 0; }
 .hp-cat { display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none !important; color: var(--th-ink, #2a2622); }
 .hp-cat__img { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #fff; border: 4px solid #fff; box-shadow: 0 6px 18px rgba(42, 38, 34, .1); transition: box-shadow .25s, border-color .25s; }
@@ -88,27 +71,20 @@
   .hp-hero__ctas { justify-content: center; }
   .hp-hero__media { justify-self: center; max-width: 420px; }
   .hp-hero__badge { left: -8px; }
-  .hp-perks { grid-template-columns: repeat(2, 1fr); margin-left: 15px; margin-right: 15px; }
-  .hp-perks li:nth-child(3) { border-left: 0; }
-  .hp-perks li:nth-child(n + 3) { border-top: 1px solid #efe6d6; }
   .hp-cats__list { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 575px) {
   .hp-hero__inner { padding-top: 36px; }
   .hp-hero__lead { font-size: 1.02rem; }
-  .hp-btn { width: 100%; }
+  .hp-hero .pf-btn { width: 100%; }
   .hp-hero__media { max-width: 300px; }
   .hp-hero__badge { bottom: 20px; padding: 10px 14px 8px; }
   .hp-hero__badge strong { font-size: 1.15rem; }
-  .hp-perks { grid-template-columns: 1fr; }
-  .hp-perks li + li { border-left: 0; border-top: 1px solid #efe6d6; }
-  .hp-perks li { padding: 16px 18px; }
-  .hp-section-head { margin-top: 48px; }
   .hp-cats__list { grid-template-columns: repeat(3, 1fr); gap: 16px 12px; }
   .hp-cat__label { font-size: .85rem; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hp-btn, .hp-cat__img img, .hp-hero__badge, .info-section .info-section-item, .info-section .info-section-item img, .how-it-works .item { transition: none; }
-  .hp-btn:hover, .info-section .info-section-item:hover, .how-it-works .item:hover { transform: none; }
+  .hp-cat__img img, .hp-hero__badge, .info-section .info-section-item, .info-section .info-section-item img, .how-it-works .item { transition: none; }
+  .info-section .info-section-item:hover, .how-it-works .item:hover { transform: none; }
   .hp-cat:hover .hp-cat__img img, .info-section .info-section-item:hover img { transform: none; }
 }

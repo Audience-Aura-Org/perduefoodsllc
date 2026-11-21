@@ -21,8 +21,7 @@
 /* ---------- Shared ---------- */
 .offline-page, .shop-page { max-width: 1270px; padding-top: 32px; padding-bottom: 72px; font-family: "Josefin Sans", sans-serif; color: var(--pf-ink); }
 .offline-title { font-family: "Libre Caslon Text", Georgia, serif; color: var(--pf-navy); font-weight: 400; font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); line-height: 1.2; margin: 0 0 1rem; }
-.offline-eyebrow { color: var(--pf-navy); font-weight: 700; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 .5rem; }
-.offline-eyebrow::after { content: ""; display: block; width: 40px; height: 3px; background: var(--pf-gold); margin: 8px auto 0; }
+.offline-notice .pf-eyebrow::after { content: ""; display: block; width: 40px; height: 3px; background: var(--pf-gold); margin: 8px auto 0; }
 .offline-actions { margin-top: 1.5rem; display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
 .offline-page .btn, .shop-page .btn { border-radius: 3px; }
 .offline-page .form-control, .shop-page .form-control { border-color: #d6ccba; border-radius: 3px; transition: border-color .15s, box-shadow .15s; }
