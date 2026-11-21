@@ -28,7 +28,10 @@
 <%- include('/partials/header') %>
 <div class="main-content" id="maincontent">
   <div class="container shop-page checkout-page">
-    <h1 class="offline-title">Checkout</h1>
+    <div class="shop-head">
+      <h1 class="offline-title">Checkout</h1>
+      <a class="shop-head__back" href="/en-US/cart/">&larr; Back to cart</a>
+    </div>
 
     <% if (errorCount) { %>
       <div class="co-summary" role="alert" tabindex="-1" id="co-error-summary">
@@ -109,12 +112,12 @@
         <h2>Your order</h2>
         <ul class="co-items">
           <% for (const l of cart.lines) { %>
-            <li><img src="<%= l.product.image %>" alt=""><span><%= l.product.name %><small>Qty <%= l.qty %></small></span><b><%= money(l.total) %></b></li>
+            <li><span class="co-items__img"><img src="<%= l.product.image %>" alt=""><b class="co-items__qty" aria-hidden="true"><%= l.qty %></b></span><span><%= l.product.name %><small>Qty <%= l.qty %></small></span><b><%= money(l.total) %></b></li>
           <% } %>
         </ul>
         <dl>
           <dt>Subtotal</dt><dd><%= money(cart.subtotal) %></dd>
-          <dt>Shipping</dt><dd><%= cart.shipping ? money(cart.shipping) : 'FREE' %></dd>
+          <dt>Shipping</dt><dd><%- cart.shipping ? money(cart.shipping) : '<span class="shop-free">FREE</span>' %></dd>
           <dt class="shop-total">Total</dt><dd class="shop-total"><%= money(cart.total) %></dd>
         </dl>
         <a class="shop-continue" href="/en-US/cart/">Edit cart</a>

@@ -2,34 +2,47 @@
 <%- include('/partials/header') %>
 <div class="main-content" id="maincontent">
   <div class="container shop-page">
-    <h1 class="offline-title">Your Cart</h1>
+    <div class="shop-head">
+      <h1 class="offline-title">Your Cart</h1>
+      <% if (cart.count) { %><span class="shop-head__count"><%= cart.count %> item<%= cart.count === 1 ? '' : 's' %></span><% } %>
+    </div>
 
     <% if (!cart.count) { %>
       <div class="shop-empty">
-        <p>Your cart is empty.</p>
+        <svg class="shop-empty__icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#fbeedb"/><path d="M17 21h5l4.5 18h17l4-13H24" fill="none" stroke="#1f4d3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="45" r="2.5" fill="#1f4d3a"/><circle cx="41" cy="45" r="2.5" fill="#1f4d3a"/></svg>
+        <h2 class="shop-empty__title">Your cart is empty</h2>
+        <p>Farm-raised chicken, premium meats and holiday favorites, delivered to your door. Orders over <%= money(shop.freeShippingMin) %> ship free.</p>
         <p class="offline-actions"><a class="btn btn-primary" href="/en-US/farm-fresh-chicken/">Shop chicken</a><a class="btn btn-outline-primary" href="/en-US/meats-seafood/">Shop meats &amp; seafood</a></p>
       </div>
     <% } else { %>
+      <% const pct = Math.min(100, Math.round(cart.subtotal / shop.freeShippingMin * 100)); %>
       <div class="shop-layout">
         <section class="shop-main" aria-label="Items in your cart">
-          <% if (cart.toFreeShipping) { %>
-            <p class="shop-banner">You’re <strong><%= money(cart.toFreeShipping) %></strong> away from <strong>free shipping</strong> (orders over <%= money(shop.freeShippingMin) %>).</p>
-          <% } else { %>
-            <p class="shop-banner shop-banner--ok">Your order ships <strong>free</strong>.</p>
-          <% } %>
+          <div class="ship-meter<%= cart.toFreeShipping ? '' : ' ship-meter--done' %>">
+            <p class="ship-meter__text">
+              <% if (cart.toFreeShipping) { %>You’re <strong><%= money(cart.toFreeShipping) %></strong> away from <strong>free shipping</strong><% } else { %><strong>Nice!</strong> Your order ships <strong>free</strong><% } %>
+            </p>
+            <div class="ship-meter__track" role="progressbar" aria-label="Progress toward free shipping" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= pct %>"><span style="width:<%= pct %>%"></span></div>
+          </div>
+          <a class="btn btn-primary btn-block shop-cta shop-cta--top" href="/checkout">Checkout · <%= money(cart.total) %></a>
+
           <ul class="cart-lines">
             <% for (const l of cart.lines) { %>
               <li class="cart-line">
                 <a class="cart-line__img" href="<%= l.product.url %>"><img src="<%= l.product.image %>" alt="" loading="lazy"></a>
                 <div class="cart-line__info">
                   <a class="cart-line__name" href="<%= l.product.url %>"><%= l.product.name %></a>
-                  <span class="cart-line__unit"><%= money(l.product.price) %> each<% if (l.product.listPrice) { %> <s><%= money(l.product.listPrice) %></s><% } %></span>
+                  <span class="cart-line__unit"><%= money(l.product.price) %> each<% if (l.product.listPrice) { %> <s><%= money(l.product.listPrice) %></s> <span class="cart-line__save">Save <%= money(l.product.listPrice - l.product.price) %></span><% } %></span>
                   <form class="cart-line__qty" action="/cart/update" method="post">
                     <input type="hidden" name="pid" value="<%= l.pid %>">
-                    <label for="qty-<%= l.pid %>">Qty</label>
-                    <input id="qty-<%= l.pid %>" class="form-control" type="number" name="quantity" value="<%= l.qty %>" min="0" max="<%= shop.maxQtyPerItem %>" inputmode="numeric" onchange="this.form.submit()">
-                    <button class="btn btn-link" type="submit">Update</button>
-                    <button class="btn btn-link cart-line__remove" type="submit" name="remove" value="1" aria-label="Remove <%= l.product.name %>">Remove</button>
+                    <label class="sr-only" for="qty-<%= l.pid %>">Quantity for <%= l.product.name %></label>
+                    <div class="qty-stepper">
+                      <button type="submit" name="set" value="<%= l.qty - 1 %>" aria-label="Decrease quantity"<%= l.qty <= 1 ? ' disabled' : '' %>>&minus;</button>
+                      <input id="qty-<%= l.pid %>" type="number" name="quantity" value="<%= l.qty %>" min="0" max="<%= shop.maxQtyPerItem %>" inputmode="numeric" onchange="this.form.submit()">
+                      <button type="submit" name="set" value="<%= l.qty + 1 %>" aria-label="Increase quantity"<%= l.qty >= shop.maxQtyPerItem ? ' disabled' : '' %>>+</button>
+                    </div>
+                    <noscript><button class="btn btn-link" type="submit">Update</button></noscript>
+                    <button class="cart-line__remove" type="submit" name="remove" value="1" aria-label="Remove <%= l.product.name %>">Remove</button>
                   </form>
                 </div>
                 <div class="cart-line__total"><%= money(l.total) %></div>
@@ -42,11 +55,12 @@
           <h2>Order summary</h2>
           <dl>
             <dt>Subtotal (<%= cart.count %> item<%= cart.count === 1 ? '' : 's' %>)</dt><dd><%= money(cart.subtotal) %></dd>
-            <dt>Shipping</dt><dd><%= cart.shipping ? money(cart.shipping) : 'FREE' %></dd>
+            <dt>Shipping</dt><dd><%- cart.shipping ? money(cart.shipping) : '<span class="shop-free">FREE</span>' %></dd>
             <dt class="shop-total">Total</dt><dd class="shop-total"><%= money(cart.total) %></dd>
           </dl>
           <a class="btn btn-primary btn-block shop-cta" href="/checkout">Checkout</a>
           <a class="shop-continue" href="/">Continue shopping</a>
+          <p class="shop-note">Free shipping on orders over <%= money(shop.freeShippingMin) %>.</p>
         </aside>
       </div>
     <% } %>

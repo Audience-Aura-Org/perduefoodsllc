@@ -1,0 +1,89 @@
+/* Site-wide "farmhouse" theme layered over the captured storefront CSS.
+   Colours: forest #1f4d3a (primary), amber #e0913a (accent), cream #faf6ef (page).
+   Loaded last so it wins over global.css and the page stylesheets. */
+:root {
+  --th-forest: #1f4d3a;
+  --th-forest-dark: #163a2b;
+  --th-forest-ink: #0f2a1f;
+  --th-amber: #e0913a;
+  --th-amber-dark: #c4762a;
+  --th-cream: #faf6ef;
+  --th-sand: #efe6d6;
+  --th-ink: #2a2622;
+  --th-radius: 8px;
+  --th-shadow: 0 1px 2px rgba(42, 38, 34, .06), 0 4px 14px rgba(42, 38, 34, .07);
+  --th-shadow-hover: 0 10px 28px rgba(31, 77, 58, .18);
+}
+
+body { background-color: var(--th-cream); color: var(--th-ink); }
+::selection { background: var(--th-amber); color: #fff; }
+
+/* ---------- Buttons ---------- */
+.btn { border-radius: 999px; transition: background-color .15s, border-color .15s, color .15s, box-shadow .15s, transform .1s; }
+.btn:active { transform: translateY(1px); }
+.btn-primary, .btn-primary:not(:disabled):not(.disabled):active { background-color: var(--th-forest); border-color: var(--th-forest); color: #fff; }
+.btn-primary:hover, .btn-primary:focus { background-color: var(--th-forest-dark); border-color: var(--th-forest-dark); color: #fff; box-shadow: 0 4px 12px rgba(31, 77, 58, .25); }
+.btn-outline-primary { color: var(--th-forest); border-color: var(--th-forest); border-width: 2px; }
+.btn-outline-primary:hover { background-color: var(--th-forest); border-color: var(--th-forest); color: #fff; }
+.add-to-cart, .add-to-cart-global { background-color: var(--th-amber) !important; border-color: var(--th-amber) !important; color: var(--th-forest-ink) !important; font-weight: 700; }
+.add-to-cart:hover, .add-to-cart-global:hover { background-color: var(--th-amber-dark) !important; border-color: var(--th-amber-dark) !important; color: #fff !important; }
+
+/* ---------- Header ---------- */
+.header-promotion { background: var(--th-amber) !important; color: var(--th-forest-ink) !important; letter-spacing: .06em; }
+.header-promotion * { color: inherit !important; }
+.navbar-header .search .form-control, .site-search .form-control, .site-search input[type="text"], .site-search input[type="search"] { border-radius: 999px !important; border-color: #d6ccba !important; background: #fff; padding-left: 1.1rem; }
+.site-search { border-radius: 999px; }
+.site-search .fa-search, .site-search .search-button { color: var(--th-forest); }
+.menu-list-link, .list-link.level1 { transition: color .15s; }
+.dropdown-link:hover, .menu-list-link:hover, .list-link:hover { color: var(--th-forest) !important; }
+
+/* ---------- Product tiles & cards ---------- */
+.product, .product-tile { border-radius: var(--th-radius); }
+.product--simple, .product-tile.is-white, .experience-commerce_assets-productTile .product-tile {
+  background: #fff; border-radius: var(--th-radius); box-shadow: var(--th-shadow) !important; border: 0 !important;
+  transition: box-shadow .25s, transform .25s;
+}
+.product--simple:hover, .product-tile.is-white:hover { box-shadow: var(--th-shadow-hover) !important; transform: translateY(-3px); }
+.product-tile .tile-image, .product--simple .image-container img, .product-tile .image-container { border-radius: calc(var(--th-radius) - 2px); }
+.product-tile .product-name a, .product-tile .pdp-link a { color: var(--th-ink); }
+.product-tile .product-name a:hover, .product-tile .pdp-link a:hover { color: var(--th-forest); }
+.price .sales, .price .value { color: var(--th-forest); }
+
+/* Imagery tiles on content pages get soft corners */
+.experience-component img.image-fluid, .image-and-text img, .experience-commerce_layouts-mobileGrid2r1c img { border-radius: var(--th-radius); }
+
+/* ---------- Footer ---------- */
+#footercontent { background: var(--th-forest-dark); color: #e8e2d6; padding-top: 8px; margin-top: 48px; border-top: 6px solid var(--th-amber); }
+#footercontent a, #footercontent .footer-links, #footercontent .menu-footer, #footercontent h2, #footercontent h3,
+#footercontent .footer-get-social-text, #footercontent .text-muted, #footercontent p, #footercontent .social-links a, #footercontent .footer-email-signup .title { color: #e8e2d6 !important; }
+#footercontent a:hover { color: var(--th-amber) !important; }
+#footercontent .footer-email-signup .form-control { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .25); color: #fff; border-radius: 999px; }
+#footercontent .footer-email-signup .form-control::placeholder { color: rgba(232, 226, 214, .7); }
+#footercontent .subscribe-email { background: var(--th-amber) !important; border-color: var(--th-amber) !important; color: var(--th-forest-ink) !important; border-radius: 999px; font-weight: 700; }
+#footercontent .subscribe-email:hover { background: #fff !important; border-color: #fff !important; }
+/* brand logos are full-colour artwork, so they sit on a light panel */
+#footercontent .wrapper-our-brands { background: var(--th-cream); border-radius: var(--th-radius); margin: 32px 0 16px; padding: 18px 12px 8px; }
+#footercontent .wrapper-our-brands, #footercontent .wrapper-our-brands * { color: var(--th-ink) !important; }
+#footercontent .wrapper-our-brands hr, #footercontent .our-brands-title::before, #footercontent .our-brands-title::after { border-color: #d6ccba !important; background-color: #d6ccba !important; }
+#footercontent .wrapper-social-copyright, #footercontent .wrapper-social-copyright * { color: rgba(232, 226, 214, .75) !important; }
+#footercontent .footer-email-border { border-color: rgba(255, 255, 255, .15) !important; }
+.footer-item, .footer-email-signup { background: transparent !important; }
+
+/* ---------- Forms & focus ---------- */
+.form-control:focus { border-color: var(--th-forest); box-shadow: 0 0 0 3px rgba(31, 77, 58, .18); }
+a:focus-visible, button:focus-visible, .btn:focus-visible { outline: 3px solid rgba(224, 145, 58, .6); outline-offset: 2px; box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .product--simple, .product-tile.is-white { transition: none; }
+  .product--simple:hover, .product-tile.is-white:hover { transform: none; }
+}
+
+/* ---------- Fixes for the dark footer & promo strip ---------- */
+.wrapper-banner-promo-slot { background: var(--th-amber) !important; }
+.wrapper-banner-promo-slot a, .wrapper-banner-promo-slot span { color: var(--th-forest-ink) !important; }
+#footercontent .email-description { color: #fff !important; }
+#footercontent .social-links a, #footercontent .social-links i, #footercontent .footer-get-social i { color: #e8e2d6 !important; }
+#footercontent .our-brands-title { border-top-color: rgba(255, 255, 255, .2); margin-top: 40px; }
+#footercontent .our-brands-text { background: var(--th-forest-dark); color: var(--th-amber) !important; letter-spacing: .12em; padding: .5rem 1rem; }
+#footercontent .wrapper-our-brands { background: #fff; margin-top: 28px; }
+#footercontent .wrapper-our-brands, #footercontent .wrapper-our-brands * { color: inherit !important; }

@@ -131,7 +131,9 @@ export function shop({ catalog }) {
   });
   site.post('/cart/update', form, (req, res) => {
     const id = carts.idFor(req, res);
-    if (id && req.body.pid) carts.set(id, String(req.body.pid), req.body.remove ? 0 : Math.max(0, Math.min(config.shop.maxQtyPerItem, parseInt(req.body.quantity, 10) || 0)));
+    // `set` comes from the −/+ stepper buttons and wins over the typed quantity field.
+    const qty = parseInt(req.body.set ?? req.body.quantity, 10) || 0;
+    if (id && req.body.pid) carts.set(id, String(req.body.pid), req.body.remove ? 0 : Math.max(0, Math.min(config.shop.maxQtyPerItem, qty)));
     res.redirect(303, '/en-US/cart/');
   });
 

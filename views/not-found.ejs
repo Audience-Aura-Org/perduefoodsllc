@@ -2,6 +2,7 @@
 <%- include('/partials/header') %>
 <div class="main-content" id="maincontent">
   <div class="container offline-page offline-notice">
+    <p class="offline-eyebrow">Error 404</p>
     <h1 class="offline-title">We couldn’t find that page</h1>
     <p>The page <code><%= path %></code> isn’t part of this offline copy. It may have been removed from the live site before it was captured.</p>
     <form class="offline-search-form" action="/search" method="get" role="search">
@@ -9,7 +10,12 @@
       <input id="nf-q" class="form-control" type="search" name="q" placeholder="Search products, recipes and pages">
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
-    <p class="offline-actions"><a class="btn btn-outline-primary" href="/">Back to home</a></p>
+    <nav class="offline-links" aria-label="Popular pages">
+      <a href="/en-US/farm-fresh-chicken/">Chicken</a>
+      <a href="/en-US/meats-seafood/">Meats &amp; Seafood</a>
+      <a href="/en-US/recipes/">Recipes</a>
+      <a href="/">Home</a>
+    </nav>
   </div>
 </div>
 <%- include('/partials/footer') %>

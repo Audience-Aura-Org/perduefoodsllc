@@ -15,7 +15,7 @@
       <nav class="offline-filters" aria-label="Filter results">
         <a class="<%= !type ? 'active' : '' %>" href="/search?q=<%= encodeURIComponent(q) %>">All (<%= total %>)</a>
         <% for (const t of types) { %>
-          <a class="<%= type === t ? 'active' : '' %>" href="/search?q=<%= encodeURIComponent(q) %>&type=<%= encodeURIComponent(t) %>"><%= t === 'Recipe collection' ? 'Recipe collections' : t + 's' %></a>
+          <a class="<%= type === t ? 'active' : '' %>" href="/search?q=<%= encodeURIComponent(q) %>&type=<%= encodeURIComponent(t) %>"><%= ({ Category: 'Categories', 'Recipe collection': 'Recipe collections' })[t] || t + 's' %></a>
         <% } %>
       </nav>
 
@@ -26,7 +26,7 @@
           <% for (const r of results) { %>
             <li>
               <a href="<%= r.route %>">
-                <span class="offline-thumb"><% if (r.image) { %><img src="<%= r.image %>" alt="" loading="lazy"><% } %></span>
+                <span class="offline-thumb<%= r.image ? '' : ' offline-thumb--empty' %>"><% if (r.image) { %><img src="<%= r.image %>" alt="" loading="lazy"><% } %></span>
                 <span class="offline-meta">
                   <span class="offline-type"><%= r.type %></span>
                   <span class="offline-name"><%= r.title %></span>
