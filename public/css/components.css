@@ -16,15 +16,15 @@
   --pf-elev-1: 0 1px 2px rgba(42, 38, 34, .06), 0 4px 14px rgba(42, 38, 34, .07);
   --pf-elev-2: 0 10px 30px rgba(42, 38, 34, .1);
   --pf-elev-hover: 0 16px 36px rgba(31, 77, 58, .18);
-  --pf-serif: "Libre Caslon Text", Georgia, serif;
-  --pf-sans: "Josefin Sans", sans-serif;
+  --pf-serif: Poppins, "Helvetica Neue", Arial, sans-serif;
+  --pf-sans: Poppins, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ---------- Typography ---------- */
 .pf-eyebrow { margin: 0 0 .6rem; color: var(--th-amber-dark, #c4762a); font-family: var(--pf-sans); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; }
 .pf-section-head { text-align: center; margin: 64px auto 28px; }
 .pf-section-head--left { text-align: left; }
-.pf-section-title { margin: 0; font-family: var(--pf-serif); font-weight: 400; color: var(--th-forest, #1f4d3a); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.15; }
+.pf-section-title { margin: 0; font-family: var(--pf-serif); font-weight: 500; letter-spacing: -.01em; color: var(--th-forest, #1f4d3a); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.15; }
 .pf-section-title::after { content: ""; display: block; width: 48px; height: 3px; margin: 16px auto 0; background: var(--th-amber, #e0913a); border-radius: 2px; }
 .pf-section-head--left .pf-section-title::after { margin-left: 0; }
 
