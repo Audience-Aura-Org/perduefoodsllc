@@ -6204,5 +6204,149 @@
   "description": "Yummy dino nuggets now in a gluten-free version! Enjoy the amazing flavor of all-white meat chicken breast and seasonings in one delicious bite. Gluten-free breading means you can enjoy without sensitivity! Visit Perduefarms.com to order Yummy chicken nuggets, Perdue chicken and all your favorite frozen chicken products for home delivery.",
   "image": "/images/products/22697_FTLPKH_GF_DinoNug_2000x2000.png",
   "pid": "22697"
+ },
+ {
+  "route": "/en-US/whole-chicken-grill/91001.html",
+  "view": "pages/en-US/whole-chicken-grill/91001",
+  "type": "Product",
+  "title": "Whole Chicken, Ready to Roast",
+  "description": "Approx. 3.5-lb. whole chicken, giblets and neck removed, ready for the oven or grill. A whole bird is the most versatile dinner in the freezer. This chicken comes cleaned and trimmed with the giblets and neck already removed, so it goes straight from thawed to seasoned to roasting pan.",
+  "image": "/images/products/91001_whole-chicken-grill_500x500.jpg",
+  "pid": "91001"
+ },
+ {
+  "route": "/en-US/boneless-skinless-chicken-breast-halves/91002.html",
+  "view": "pages/en-US/boneless-skinless-chicken-breast-halves/91002",
+  "type": "Product",
+  "title": "Boneless Skinless Chicken Breast Halves",
+  "description": "Approx. 3-lb. pack of single boneless, skinless breast halves with the tenderloin removed. Lean, trimmed and evenly shaped, these single breast halves have the bone, skin and inner fillet removed so every piece cooks at the same rate.",
+  "image": "/images/products/91002_boneless-skinless-chicken-breast-halves_500x500.jpg",
+  "pid": "91002"
+ },
+ {
+  "route": "/en-US/butterfly-chicken-breast-fillets/91003.html",
+  "view": "pages/en-US/butterfly-chicken-breast-fillets/91003",
+  "type": "Product",
+  "title": "Butterfly Chicken Breast Fillets",
+  "description": "Approx. 3-lb. pack of whole boneless, skinless breasts, butterflied for quick, even cooking. Butterfly fillets are whole boneless, skinless breasts opened out flat. The thinner, even shape means they cook fast and stay juicy on the grill or in a hot pan.",
+  "image": "/images/products/91003_butterfly-chicken-breast-fillets_500x500.jpg",
+  "pid": "91003"
+ },
+ {
+  "route": "/en-US/bone-in-skin-on-chicken-breasts/91004.html",
+  "view": "pages/en-US/bone-in-skin-on-chicken-breasts/91004",
+  "type": "Product",
+  "title": "Bone-In Skin-On Chicken Breasts",
+  "description": "Approx. 3-lb. pack of whole bone-in, skin-on breasts for roasting and grilling. Cooking breast meat on the bone with the skin on keeps it moist and adds flavor, and the skin roasts up golden and crisp.",
+  "image": "/images/products/91004_bone-in-skin-on-chicken-breasts_500x500.jpg",
+  "pid": "91004"
+ },
+ {
+  "route": "/en-US/oyster-cut-chicken-legs/91005.html",
+  "view": "pages/en-US/oyster-cut-chicken-legs/91005",
+  "type": "Product",
+  "title": "Oyster-Cut Chicken Legs",
+  "description": "Approx. 3-lb. pack of whole legs, thigh and drumstick, with the backbone removed. Oyster-cut legs are whole chicken legs with the backbone trimmed away and the tender \"oyster\" of meat kept on the thigh.",
+  "image": "/images/products/91005_oyster-cut-chicken-legs_500x500.jpg",
+  "pid": "91005"
+ },
+ {
+  "route": "/en-US/bone-in-chicken-thighs-bulk-pack/91006.html",
+  "view": "pages/en-US/bone-in-chicken-thighs-bulk-pack/91006",
+  "type": "Product",
+  "title": "Bone-In Chicken Thighs Bulk Pack",
+  "description": "Approx. 4-lb. bulk pack of bone-in, skin-on thighs. Thighs are the cook's favorite cut: forgiving, full of flavor and great value. This bulk pack of bone-in, skin-on thighs is made for family dinners and meal prep.",
+  "image": "/images/products/91006_bone-in-chicken-thighs-bulk-pack_500x500.jpg",
+  "pid": "91006"
+ },
+ {
+  "route": "/en-US/chicken-leg-quarters/91007.html",
+  "view": "pages/en-US/chicken-leg-quarters/91007",
+  "type": "Product",
+  "title": "Chicken Leg Quarters",
+  "description": "Approx. 5-lb. value pack of leg quarters, thigh, drumstick and a portion of back. Leg quarters are the thigh and drumstick together with a portion of the back attached. They are one of the best-value cuts of chicken.",
+  "image": "/images/products/91007_chicken-leg-quarters_500x500.jpg",
+  "pid": "91007"
+ },
+ {
+  "route": "/en-US/bone-in-chicken-drumsticks/91008.html",
+  "view": "pages/en-US/bone-in-chicken-drumsticks/91008",
+  "type": "Product",
+  "title": "Bone-In Skin-On Chicken Drumsticks",
+  "description": "Approx. 3-lb. pack of meaty, bone-in, skin-on drumsticks. Drumsticks are easy to cook, easy to eat and a hit with kids. These meaty bone-in, skin-on drumsticks are great for weeknights and game days.",
+  "image": "/images/products/91008_bone-in-chicken-drumsticks_500x500.jpg",
+  "pid": "91008"
+ },
+ {
+  "route": "/en-US/whole-chicken-wings-3-joint/91009.html",
+  "view": "pages/en-US/whole-chicken-wings-3-joint/91009",
+  "type": "Product",
+  "title": "Whole Chicken Wings, 3-Joint",
+  "description": "Approx. 3-lb. pack of whole, uncut wings: drumette, flat and tip. Whole 3-joint wings keep the drumette, flat and tip together. Roast or smoke them whole, or cut them into sections at home and save the tips for stock.",
+  "image": "/images/products/91009_whole-chicken-wings-3-joint_500x500.jpg",
+  "pid": "91009"
+ },
+ {
+  "route": "/en-US/chicken-wing-drumettes/91010.html",
+  "view": "pages/en-US/chicken-wing-drumettes/91010",
+  "type": "Product",
+  "title": "Chicken Wing Drumettes",
+  "description": "Approx. 3-lb. pack of meaty wing drumettes, the first segment of the wing. Drumettes are the meatiest part of the wing, the first segment. They come ready to sauce, with no cutting needed.",
+  "image": "/images/products/91010_chicken-wing-drumettes_500x500.jpg",
+  "pid": "91010"
+ },
+ {
+  "route": "/en-US/chicken-wing-flats/91011.html",
+  "view": "pages/en-US/chicken-wing-flats/91011",
+  "type": "Product",
+  "title": "Chicken Wing Flats",
+  "description": "Approx. 3-lb. pack of wing flats, the second segment of the wing. Many wing lovers prefer flats, the second segment of the wing. The thin, two-bone sections cook up extra crispy and hold plenty of sauce.",
+  "image": "/images/products/91011_chicken-wing-flats_500x500.jpg",
+  "pid": "91011"
+ },
+ {
+  "route": "/en-US/chicken-feet/91012.html",
+  "view": "pages/en-US/chicken-feet/91012",
+  "type": "Product",
+  "title": "Chicken Feet",
+  "description": "Approx. 2-lb. pack of cleaned, processed chicken feet. Chicken feet are cleaned and processed, and they are the secret to deeply rich, gelatin-packed bone broth.",
+  "image": "/images/products/91012_chicken-feet_500x500.jpg",
+  "pid": "91012"
+ },
+ {
+  "route": "/en-US/chicken-livers/91013.html",
+  "view": "pages/en-US/chicken-livers/91013",
+  "type": "Product",
+  "title": "Chicken Livers",
+  "description": "Approx. 1.5-lb. pack of tender, mild chicken livers. Chicken livers are rich, tender and naturally high in iron and vitamin A, and they are the classic base for silky pâté.",
+  "image": "/images/products/91013_chicken-livers_500x500.jpg",
+  "pid": "91013"
+ },
+ {
+  "route": "/en-US/chicken-hearts/91014.html",
+  "view": "pages/en-US/chicken-hearts/91014",
+  "type": "Product",
+  "title": "Chicken Hearts",
+  "description": "Approx. 1.5-lb. pack of cleaned chicken hearts. Chicken hearts are small, meaty and full of flavor. They are a churrasco favorite, threaded onto skewers and grilled over high heat.",
+  "image": "/images/products/91014_chicken-hearts_500x500.jpg",
+  "pid": "91014"
+ },
+ {
+  "route": "/en-US/chicken-gizzards/91015.html",
+  "view": "pages/en-US/chicken-gizzards/91015",
+  "type": "Product",
+  "title": "Chicken Gizzards",
+  "description": "Approx. 2-lb. pack of cleaned chicken gizzards. Gizzards are cleaned and ready to cook. They are a Southern classic when slow-simmered until tender, then breaded and fried.",
+  "image": "/images/products/91015_chicken-gizzards_500x500.jpg",
+  "pid": "91015"
+ },
+ {
+  "route": "/en-US/chicken-necks/91016.html",
+  "view": "pages/en-US/chicken-necks/91016",
+  "type": "Product",
+  "title": "Skinless Chicken Necks",
+  "description": "Approx. 2-lb. pack of skinless chicken necks for stock and soup. Skinless chicken necks are an inexpensive way to make a clear, flavorful stock or soup base.",
+  "image": "/images/products/91016_chicken-necks_500x500.jpg",
+  "pid": "91016"
  }
 ]

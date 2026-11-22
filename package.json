@@ -13,7 +13,8 @@
     "dev": "node --watch-path=src --watch-path=server.js server.js --dev",
     "test": "node --test --test-concurrency=1 \"test/**/*.test.js\"",
     "mail:test": "node scripts/mail-test.js",
-    "images:optimize": "node scripts/optimize-images.mjs"
+    "images:optimize": "node scripts/optimize-images.mjs",
+    "products:add": "node scripts/add-products.mjs"
   },
   "dependencies": {
     "compression": "1.7.5",

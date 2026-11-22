@@ -1,0 +1,503 @@
+{
+  "about": "Products added by hand (not captured). Build with: npm run products:add. Prices and pack sizes are store-set; product photos come from optimeat.ro (source image file names below).",
+  "imageBase": "https://www.optimeat.ro/wp-content/uploads/",
+  "homepageHeading": {
+    "eyebrow": "Our main products",
+    "title": "Farm-fresh chicken cuts",
+    "cta": "Shop all chicken"
+  },
+  "homepageFeatured": [
+    "91002",
+    "91003",
+    "91001",
+    "91006",
+    "91008",
+    "91007",
+    "91009",
+    "91010"
+  ],
+  "products": [
+    {
+      "pid": "91001",
+      "slug": "whole-chicken-grill",
+      "name": "Whole Chicken, Ready to Roast",
+      "price": 16.99,
+      "image": "2019/06/pui-grill-fara-organe-fara-gat-Optimeat.jpg",
+      "short": "Approx. 3.5-lb. whole chicken, giblets and neck removed, ready for the oven or grill",
+      "description": [
+        "A whole bird is the most versatile dinner in the freezer. This chicken comes cleaned and trimmed with the giblets and neck already removed, so it goes straight from thawed to seasoned to roasting pan.",
+        "Roast it whole for a Sunday dinner, spatchcock it for the grill, or break it down into eight pieces for frying and braising. Save the carcass afterwards for a rich homemade stock.",
+        "For the crispiest skin, pat the bird dry, season it generously and let it sit uncovered in the refrigerator for a few hours before roasting. Rest the chicken for 15 minutes after it comes out of the oven so the juices settle before carving."
+      ],
+      "facts": [
+        "Approx. 3.5-lb. Whole Chicken",
+        "Giblets and Neck Removed",
+        "Great for Roasting, Grilling or Rotisserie",
+        "Individually Frozen and Sealed"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F in the thickest part of the thigh.",
+      "categories": [
+        "chicken",
+        "whole-chickens",
+        "all-products"
+      ],
+      "primary": "whole-chickens",
+      "ideas": [
+        "Classic herb-and-lemon roast chicken with root vegetables",
+        "Spatchcocked and grilled with a garlic-paprika rub",
+        "Slow-cooker whole chicken for shredding into tacos and soups"
+      ]
+    },
+    {
+      "pid": "91002",
+      "slug": "boneless-skinless-chicken-breast-halves",
+      "name": "Boneless Skinless Chicken Breast Halves",
+      "price": 27.99,
+      "image": "2019/06/piept-jumatati-fara-os-fara-piele-fara-inner-file-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of single boneless, skinless breast halves with the tenderloin removed",
+      "description": [
+        "Lean, trimmed and evenly shaped, these single breast halves have the bone, skin and inner fillet removed so every piece cooks at the same rate.",
+        "Grill them whole, slice them for stir-fries and salads, or pound them thin for cutlets. They are the everyday cut that works in almost any recipe.",
+        "With the tenderloin already removed, each half is an even thickness from end to end, so there are no dry edges or undercooked centers. Brine them for 30 minutes in salted water for extra-juicy results."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Single Breast Halves – Boneless and Skinless",
+        "Inner Fillet (Tenderloin) Removed",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken",
+        "chicken-breast",
+        "all-products"
+      ],
+      "primary": "chicken-breast",
+      "ideas": [
+        "Grilled chicken breast over Caesar salad",
+        "Sliced into strips for fajitas or stir-fry",
+        "Pounded thin for chicken piccata or parmesan"
+      ]
+    },
+    {
+      "pid": "91003",
+      "slug": "butterfly-chicken-breast-fillets",
+      "name": "Butterfly Chicken Breast Fillets",
+      "price": 29.99,
+      "image": "2019/06/piept-intreg-fara-os-fara-piela-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of whole boneless, skinless breasts, butterflied for quick, even cooking",
+      "description": [
+        "Butterfly fillets are whole boneless, skinless breasts opened out flat. The thinner, even shape means they cook fast and stay juicy on the grill or in a hot pan.",
+        "They are ideal for stuffing and rolling, for chicken Milanese, or for marinating and grilling for sandwiches.",
+        "Because the fillet is opened flat, marinades soak in quickly and it cooks in minutes. Lay it out, fill it with spinach and cheese, roll it up and bake for an easy dinner-party main."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Whole Breast, Boneless and Skinless",
+        "Butterflied for Fast, Even Cooking",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken",
+        "chicken-breast",
+        "pre-cut-recipe-ready"
+      ],
+      "primary": "chicken-breast",
+      "ideas": [
+        "Stuffed and rolled chicken with spinach and feta",
+        "Crispy breaded chicken Milanese with arugula",
+        "Marinated grilled chicken sandwiches"
+      ]
+    },
+    {
+      "pid": "91004",
+      "slug": "bone-in-skin-on-chicken-breasts",
+      "name": "Bone-In Skin-On Chicken Breasts",
+      "price": 22.99,
+      "image": "2019/06/piept-de-pui-intreg-cu-os-si-piele-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of whole bone-in, skin-on breasts for roasting and grilling",
+      "description": [
+        "Cooking breast meat on the bone with the skin on keeps it moist and adds flavor, and the skin roasts up golden and crisp.",
+        "Roast them with herbs and lemon, smoke them low and slow, or split them for the grill.",
+        "Roasting on the bone protects the meat from drying out, and the skin bastes the breast as it cooks. Start skin-side up in a hot oven, then lower the heat to finish so the skin crisps and the meat stays moist."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Whole Breast, Bone-In and Skin-On",
+        "Juicy and Flavorful When Roasted",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken",
+        "chicken-breast"
+      ],
+      "primary": "chicken-breast",
+      "ideas": [
+        "Lemon-garlic roasted split breasts",
+        "Smoked bone-in breasts with a sweet barbecue rub",
+        "Roasted, then shredded for chicken salad"
+      ]
+    },
+    {
+      "pid": "91005",
+      "slug": "oyster-cut-chicken-legs",
+      "name": "Oyster-Cut Chicken Legs",
+      "price": 18.99,
+      "image": "2019/06/pulpa-pui-fara-spate-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of whole legs, thigh and drumstick, with the backbone removed",
+      "description": [
+        "Oyster-cut legs are whole chicken legs with the backbone trimmed away and the tender \"oyster\" of meat kept on the thigh.",
+        "Rich dark meat that stays juicy whether you roast, braise, barbecue or slow-cook it.",
+        "Keeping the thigh and drumstick together means one generous portion per person, with the bones adding flavor as it cooks. The dark meat stays tender through long, slow cooking."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Thigh and Drumstick Together, Back Removed",
+        "Rich, Juicy Dark Meat",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 170°F.",
+      "categories": [
+        "chicken",
+        "thighs-and-legs"
+      ],
+      "primary": "thighs-and-legs",
+      "ideas": [
+        "Coq au vin or red-wine braised chicken legs",
+        "Sheet-pan roasted legs with potatoes and onions",
+        "Grilled jerk chicken legs"
+      ]
+    },
+    {
+      "pid": "91006",
+      "slug": "bone-in-chicken-thighs-bulk-pack",
+      "name": "Bone-In Chicken Thighs Bulk Pack",
+      "price": 19.99,
+      "image": "2019/06/pulpa-superioara-de-pui-cu-os-si-piele-Optimeat.jpg",
+      "short": "Approx. 4-lb. bulk pack of bone-in, skin-on thighs",
+      "description": [
+        "Thighs are the cook's favorite cut: forgiving, full of flavor and great value. This bulk pack of bone-in, skin-on thighs is made for family dinners and meal prep.",
+        "Sear them skin-side down for crisp skin, bake them on a sheet pan with vegetables, or braise them in a curry or stew.",
+        "Thighs stay juicy even when cooked a little longer, which makes them perfect for busy weeknights. Buying in bulk keeps the freezer stocked for weeks of meals, so take out only what you need."
+      ],
+      "facts": [
+        "Approx. 4-lb. Bulk Pack",
+        "Bone-In and Skin-On",
+        "Great for Baking, Braising and Grilling",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 170°F.",
+      "categories": [
+        "chicken",
+        "thighs-and-legs",
+        "value-packs-chicken"
+      ],
+      "primary": "thighs-and-legs",
+      "ideas": [
+        "Crispy-skin pan-roasted thighs with herbs",
+        "Chicken thigh curry or stew",
+        "Honey-garlic baked thighs"
+      ]
+    },
+    {
+      "pid": "91007",
+      "slug": "chicken-leg-quarters",
+      "name": "Chicken Leg Quarters",
+      "price": 17.99,
+      "image": "2019/06/pulpa-pui-cu-spate-Optimeat.jpg",
+      "short": "Approx. 5-lb. value pack of leg quarters, thigh, drumstick and a portion of back",
+      "description": [
+        "Leg quarters are the thigh and drumstick together with a portion of the back attached. They are one of the best-value cuts of chicken.",
+        "They are made for the smoker and the barbecue, and they are just as good roasted, braised or baked with your favorite rub.",
+        "Leg quarters hold up well to marinades and long cooking times, so they are a favorite for feeding a crowd. Score the skin, season under it, and cook low and slow for meat that pulls away from the bone."
+      ],
+      "facts": [
+        "Approx. 5-lb. Value Pack",
+        "Thigh, Drumstick and Back Portion",
+        "Ideal for Barbecue and Smoking",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 170°F.",
+      "categories": [
+        "chicken",
+        "thighs-and-legs",
+        "value-packs-chicken",
+        "all-products"
+      ],
+      "primary": "thighs-and-legs",
+      "ideas": [
+        "Smoked barbecue leg quarters",
+        "Oven-baked leg quarters with a dry rub",
+        "Braised chicken and rice"
+      ]
+    },
+    {
+      "pid": "91008",
+      "slug": "bone-in-chicken-drumsticks",
+      "name": "Bone-In Skin-On Chicken Drumsticks",
+      "price": 16.99,
+      "image": "2019/06/pulpa-inferioara-de-pui-cu-os-si-piele-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of meaty, bone-in, skin-on drumsticks",
+      "description": [
+        "Drumsticks are easy to cook, easy to eat and a hit with kids. These meaty bone-in, skin-on drumsticks are great for weeknights and game days.",
+        "Bake them with a sticky glaze, air-fry them crisp, or put them on the grill.",
+        "Drumsticks have a built-in handle and cook evenly, so they are easy to get right. Pat them dry and roast them on a rack for all-around crispy skin."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Bone-In and Skin-On",
+        "Kid-Friendly and Budget-Friendly",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 170°F.",
+      "categories": [
+        "chicken",
+        "thighs-and-legs"
+      ],
+      "primary": "thighs-and-legs",
+      "ideas": [
+        "Sticky honey-soy glazed drumsticks",
+        "Air-fryer crispy drumsticks",
+        "Grilled barbecue drumsticks for game day"
+      ]
+    },
+    {
+      "pid": "91009",
+      "slug": "whole-chicken-wings-3-joint",
+      "name": "Whole Chicken Wings, 3-Joint",
+      "price": 24.99,
+      "image": "2019/06/aripi-de-pui-3-piese-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of whole, uncut wings: drumette, flat and tip",
+      "description": [
+        "Whole 3-joint wings keep the drumette, flat and tip together. Roast or smoke them whole, or cut them into sections at home and save the tips for stock.",
+        "Toss them in your favorite sauce or dry rub for game day.",
+        "Cooking wings whole keeps them extra juicy and makes for a dramatic platter. To make party wings, cut through the joints with a sharp knife and freeze the tips for your next pot of stock."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Whole Wing: Drumette, Flat and Tip",
+        "Great for Smoking, Roasting and Frying",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken",
+        "wings"
+      ],
+      "primary": "wings",
+      "ideas": [
+        "Smoked whole wings with a dry rub",
+        "Oven-roasted wings tossed in buffalo sauce",
+        "Asian-style braised wings"
+      ]
+    },
+    {
+      "pid": "91010",
+      "slug": "chicken-wing-drumettes",
+      "name": "Chicken Wing Drumettes",
+      "price": 26.99,
+      "image": "2019/06/aripi-de-pui-primul-segment-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of meaty wing drumettes, the first segment of the wing",
+      "description": [
+        "Drumettes are the meatiest part of the wing, the first segment. They come ready to sauce, with no cutting needed.",
+        "Fry, bake or air-fry them crisp, then toss them in buffalo, BBQ or honey-garlic sauce.",
+        "Drumettes have the most meat of any wing section and a handy bone to hold, so they are easy to eat at parties. Bake them on a rack at high heat, or air-fry them, for crisp skin without deep frying."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "First Wing Segment – Drumettes Only",
+        "Party-Ready, No Cutting Required",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken",
+        "wings",
+        "pre-cut-recipe-ready"
+      ],
+      "primary": "wings",
+      "ideas": [
+        "Classic buffalo drumettes with blue cheese dip",
+        "Honey-garlic or Korean-style glazed drumettes",
+        "Lemon-pepper dry-rub drumettes"
+      ]
+    },
+    {
+      "pid": "91011",
+      "slug": "chicken-wing-flats",
+      "name": "Chicken Wing Flats",
+      "price": 27.99,
+      "image": "2019/06/aripi-de-pui-al-doilea-segment-Optimeat.jpg",
+      "short": "Approx. 3-lb. pack of wing flats, the second segment of the wing",
+      "description": [
+        "Many wing lovers prefer flats, the second segment of the wing. The thin, two-bone sections cook up extra crispy and hold plenty of sauce.",
+        "They are ready to cook straight from the bag for wing night.",
+        "Flats have more skin for their size than any other wing section, which means maximum crunch. They cook quickly and evenly, so they are perfect for the air fryer."
+      ],
+      "facts": [
+        "Approx. 3-lb. Pack",
+        "Second Wing Segment – Flats Only",
+        "Extra Crispy When Fried or Air-Fried",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken",
+        "wings"
+      ],
+      "primary": "wings",
+      "ideas": [
+        "Air-fried flats with garlic parmesan",
+        "Buffalo flats for wing night",
+        "Sweet chili glazed flats"
+      ]
+    },
+    {
+      "pid": "91012",
+      "slug": "chicken-feet",
+      "name": "Chicken Feet",
+      "price": 9.99,
+      "image": "2019/06/picioare-de-pui-procesate-Optimeat.jpg",
+      "short": "Approx. 2-lb. pack of cleaned, processed chicken feet",
+      "description": [
+        "Chicken feet are cleaned and processed, and they are the secret to deeply rich, gelatin-packed bone broth.",
+        "They are also a dim sum favorite, braised with black bean sauce or slow-simmered in soups and stews.",
+        "Feet are rich in collagen, which gives broth a silky body that sets to a gel when chilled. Simmer them for several hours with aromatics, or add a few to your usual stock pot."
+      ],
+      "facts": [
+        "Approx. 2-lb. Pack",
+        "Cleaned and Processed",
+        "Ideal for Bone Broth and Stock",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken"
+      ],
+      "primary": null,
+      "ideas": [
+        "Slow-simmered bone broth",
+        "Dim sum-style braised feet in black bean sauce",
+        "Spicy braised chicken feet"
+      ]
+    },
+    {
+      "pid": "91013",
+      "slug": "chicken-livers",
+      "name": "Chicken Livers",
+      "price": 8.99,
+      "image": "2019/06/ficat-de-pui-Optimeat.jpg",
+      "short": "Approx. 1.5-lb. pack of tender, mild chicken livers",
+      "description": [
+        "Chicken livers are rich, tender and naturally high in iron and vitamin A, and they are the classic base for silky pâté.",
+        "Sauté them with onions, fry them crisp, or blend them into a smooth spread.",
+        "Livers cook in just a few minutes. Sear them over high heat until cooked through to 165°F (they stay tender if you don't go past that), or simmer them gently for pâté. Soaking them in milk before cooking mellows the flavor."
+      ],
+      "facts": [
+        "Approx. 1.5-lb. Pack",
+        "Tender and Mild Flavored",
+        "Perfect for Pâté and Sautés",
+        "Frozen for Freshness"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken"
+      ],
+      "primary": null,
+      "ideas": [
+        "Smooth chicken liver pâté",
+        "Sautéed livers with onions and herbs",
+        "Southern fried chicken livers"
+      ]
+    },
+    {
+      "pid": "91014",
+      "slug": "chicken-hearts",
+      "name": "Chicken Hearts",
+      "price": 10.99,
+      "image": "2019/06/inima-de-pui-Optimeat.jpg",
+      "short": "Approx. 1.5-lb. pack of cleaned chicken hearts",
+      "description": [
+        "Chicken hearts are small, meaty and full of flavor. They are a churrasco favorite, threaded onto skewers and grilled over high heat.",
+        "They are also great quickly sautéed with garlic or simmered in stews.",
+        "Hearts take well to bold marinades. Garlic, lime and smoked paprika are classic. Cook them hot and fast on skewers, or simmer them slowly until tender."
+      ],
+      "facts": [
+        "Approx. 1.5-lb. Pack",
+        "Cleaned and Trimmed",
+        "Great for Skewers and Sautés",
+        "Frozen for Freshness"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken"
+      ],
+      "primary": null,
+      "ideas": [
+        "Brazilian-style grilled heart skewers",
+        "Garlic-butter sautéed hearts",
+        "Hearts simmered in a tomato stew"
+      ]
+    },
+    {
+      "pid": "91015",
+      "slug": "chicken-gizzards",
+      "name": "Chicken Gizzards",
+      "price": 9.99,
+      "image": "2019/06/pipote-pui-Optimeat.jpg",
+      "short": "Approx. 2-lb. pack of cleaned chicken gizzards",
+      "description": [
+        "Gizzards are cleaned and ready to cook. They are a Southern classic when slow-simmered until tender, then breaded and fried.",
+        "They also add body to gravies, dirty rice and soups.",
+        "Gizzards are a firm muscle, so they are best simmered until tender before they are fried, grilled or added to a dish. A long, gentle cook turns them rich and meaty."
+      ],
+      "facts": [
+        "Approx. 2-lb. Pack",
+        "Cleaned and Ready to Cook",
+        "Great Fried, Braised or in Gravy",
+        "Frozen for Freshness"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken"
+      ],
+      "primary": null,
+      "ideas": [
+        "Southern fried gizzards",
+        "Gizzards in brown gravy over rice",
+        "Cajun dirty rice"
+      ]
+    },
+    {
+      "pid": "91016",
+      "slug": "chicken-necks",
+      "name": "Skinless Chicken Necks",
+      "price": 7.99,
+      "image": "2019/06/gat-fara-piele-Optimeat.jpg",
+      "short": "Approx. 2-lb. pack of skinless chicken necks for stock and soup",
+      "description": [
+        "Skinless chicken necks are an inexpensive way to make a clear, flavorful stock or soup base.",
+        "Simmer them with onion, carrot and celery for a homemade broth, or add them to a pot of soup for extra depth.",
+        "Necks are mostly bone and connective tissue, which is exactly what you want for stock. Roast them first for a deeper, darker broth, or simmer them straight from frozen for a light, clear soup base."
+      ],
+      "facts": [
+        "Approx. 2-lb. Pack",
+        "Skin Removed",
+        "Ideal for Stock and Soup",
+        "Individually Quick Frozen"
+      ],
+      "cook": "Cook thoroughly until internal temperature reaches 165°F.",
+      "categories": [
+        "chicken"
+      ],
+      "primary": null,
+      "ideas": [
+        "Homemade chicken stock and broth",
+        "Rich gravy base for the holidays",
+        "Chicken noodle soup"
+      ]
+    }
+  ]
+}
