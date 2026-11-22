@@ -63,11 +63,11 @@
 .product-detail:not(.recipe-detail) { padding-top: 24px; }
 .product-detail .primary-images .carousel, .product-detail .primary-images .detail-carousel { background: #fff; border-radius: var(--pf-r-lg); overflow: hidden; box-shadow: var(--pf-elev-1); }
 .product-detail:not(.recipe-detail) .product-name:not(.link) { font-family: var(--pf-serif); font-weight: 400 !important; text-transform: none; letter-spacing: -.005em; line-height: 1.2; color: var(--th-forest); font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.4rem); }
-.product-detail:not(.recipe-detail) .col-lg-7.text-center { text-align: left !important; }
-.product-detail .product-availability { justify-content: flex-start !important; margin: 8px 0 0; font-family: var(--pf-sans); font-size: .85rem; color: #6b645a; }
+.product-detail:not(.recipe-detail) .col-lg-7.text-center { text-align: center !important; }
+.product-detail .product-availability { justify-content: center !important; margin: 8px 0 0; font-family: var(--pf-sans); font-size: .85rem; color: #6b645a; }
 .product-detail .product-availability .availability-msg, .product-detail .product-availability .availability-msg * { color: var(--th-forest); font-weight: 700; }
 /* promo callout → quiet note card */
-.product-detail .promotions { margin: 20px 15px 12px; padding: 14px 18px; border-radius: var(--pf-r-md); background: #fbeedb; border-left: 3px solid var(--th-amber); text-align: left !important; flex: 0 0 calc(100% - 30px); max-width: calc(100% - 30px); }
+.product-detail .promotions { margin: 20px 15px 12px; padding: 14px 18px; border-radius: var(--pf-r-md); background: #fbeedb; border-left: 3px solid var(--th-amber); text-align: center !important; flex: 0 0 calc(100% - 30px); max-width: calc(100% - 30px); }
 .product-detail .promotions .callout { display: block; margin: 0; padding: 0; color: #4a443c !important; font-family: var(--pf-sans) !important; font-size: .95rem !important; line-height: 1.5; }
 .product-detail .promotions .callout * { color: inherit !important; }
 .product-detail .promotions:not(:has(.callout)) { display: none; }
@@ -79,9 +79,9 @@
 .product-detail .prices .sales .value { font-size: 2rem; color: var(--th-forest) !important; }
 .product-detail .prices .strike-through .value { font-size: 1.15rem; color: #9b9286 !important; }
 .product-detail .prices .label.sale-message { color: #b3261e; font-weight: 700; letter-spacing: .08em; }
-.product-detail:not(.recipe-detail) .attribute.quantity .col-12 { justify-content: flex-start !important; }
-.product-detail:not(.recipe-detail) .prices-add-to-cart-actions, .product-detail:not(.recipe-detail) .prices-add-to-cart-actions * { text-align: left; }
-.product-detail:not(.recipe-detail) .cart-and-ipay, .product-detail:not(.recipe-detail) .prices-add-to-cart-actions .col-12 { justify-content: flex-start !important; }
+.product-detail:not(.recipe-detail) .attribute.quantity .col-12 { justify-content: center !important; }
+.product-detail:not(.recipe-detail) .prices-add-to-cart-actions, .product-detail:not(.recipe-detail) .prices-add-to-cart-actions * { text-align: center; }
+.product-detail:not(.recipe-detail) .cart-and-ipay, .product-detail:not(.recipe-detail) .prices-add-to-cart-actions .col-12 { justify-content: center !important; }
 .product-detail .custom-qty { display: inline-flex; border: 1px solid #d6ccba !important; border-radius: 999px; overflow: hidden; background: #fff; }
 .product-detail .custom-qty__button { min-width: 42px; background: #f4eee3 !important; color: var(--th-forest) !important; border: 0 !important; font-size: 1.2rem; }
 .product-detail .custom-qty__button:hover { background: #fbeedb !important; }
