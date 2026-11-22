@@ -15,7 +15,9 @@ const SEARCH_TYPES = ['Product', 'Recipe', 'Category', 'Recipe collection', 'Pag
 // Browser / CDN caching. Captured pages are the same for every visitor (the cart badge is
 // fetched from /api/cart), so the CDN may cache them briefly and serve stale while refreshing.
 const CACHE_PAGE = 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400';
-const CACHE_CSS_JS = 'public, max-age=86400, stale-while-revalidate=604800';
+// CSS/JS URLs aren't versioned, so browsers revalidate every load (cheap 304 via ETag)
+// and design changes show up immediately instead of after a day.
+const CACHE_CSS_JS = 'public, no-cache';
 const CACHE_MEDIA = 'public, max-age=2592000, stale-while-revalidate=604800';
 
 /**

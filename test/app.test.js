@@ -281,7 +281,8 @@ test('static assets are served with cache headers', async () => {
   const css = await get('/css/global.css');
   assert.equal(css.status, 200);
   assert.match(css.headers.get('content-type'), /text\/css/);
-  assert.match(css.headers.get('cache-control'), /max-age=86400/);
+  assert.match(css.headers.get('cache-control'), /no-cache/);
+  assert.ok(css.headers.get('etag'));
   const img = await get('/images/missing.svg');
   assert.equal(img.status, 200);
   assert.match(img.headers.get('cache-control'), /max-age=2592000/);
