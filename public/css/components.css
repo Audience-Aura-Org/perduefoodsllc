@@ -86,9 +86,8 @@
 }
 
 /* ---------- Site scale ----------
-   The captured layout reads large. Desktop renders at 80%; phones and tablets at 90%
-   (80% would push body text to ~13px). Form fields stay at an effective 16px so iOS
-   doesn't zoom the page when one is focused.
+   The captured layout reads large, so every screen size renders at 80%. Form fields
+   stay at an effective 16px (20px × .8) so iOS doesn't zoom the page when one is focused.
    With CSS zoom, vw/vh units shrink with the page, so rules that should span the whole
    screen divide by --pf-zoom (or use % of the fixed viewport box) to stay full size. */
 :root { --pf-zoom: 1; }
@@ -96,8 +95,8 @@
   :root { --pf-zoom: .8; }
 }
 @media (max-width: 1023.98px) {
-  :root { --pf-zoom: .9; }
-  input:not([type="checkbox"]):not([type="radio"]), select, textarea { font-size: max(1em, 17.8px); }
+  :root { --pf-zoom: .8; }
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea { font-size: max(1em, 20px); }
   html .main-menu.menu-toggleable-left { max-height: calc(100vh / var(--pf-zoom)); }
   html .wrapper-content-scroll { height: calc(100vh / var(--pf-zoom)); }
 }
