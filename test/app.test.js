@@ -317,6 +317,48 @@ test('WhatsApp button and new contact details appear site-wide', async () => {
   assert.doesNotMatch(home, /1-800-4-PERDUE|1-800-473-7383/);
 });
 
+test('no social media icons in the footer', async () => {
+  const home = await (await get('/')).text();
+  assert.doesNotMatch(home, /footer-get-social|icon-(facebook|twitter|instagram|pinterest)\.svg|Let's Get Social/i);
+});
+
+test('quote-only products: no price or cart, and the request-a-quote form validates, records and confirms', async () => {
+  const store = '/on/demandware.store/Sites-Perdue_US-Site/en_US';
+  const pdp = await (await get('/en-US/chicken-leg-quarters/91007.html')).text();
+  const detail = pdp.slice(pdp.indexOf('class="container product-detail'), pdp.indexOf('pdp-description-banner-wrapper'));
+  assert.match(detail, /data-quote-only="true"/);
+  assert.match(detail, /Price on request/);
+  assert.match(detail, /href="\/en-US\/request-quote\/\?pid=91007"/);
+  assert.doesNotMatch(detail, /class="sales"|class="add-to-cart\b|\$\d/);
+  assert.doesNotMatch(detail, /data-share=/);
+
+  // grid tile: no price, quote button instead of add to cart
+  const grid = await (await get('/en-US/chicken/thighs-and-legs/')).text();
+  const tile = grid.slice(grid.indexOf('data-pid="91007"'), grid.indexOf('</div>\n    <!-- END_dwmarker -->', grid.indexOf('data-pid="91007"')));
+  assert.match(tile, /Price on request/);
+  assert.match(tile, /quote-btn-pt/);
+  assert.doesNotMatch(tile, /add-to-cart-pt|class="sales"/);
+
+  // the cart refuses quote-only products even when posted directly
+  const add = await (await get(`${store}/Cart-AddProduct`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ pid: '91007', quantity: '1' }) })).json();
+  assert.equal(add.error, true);
+  assert.match(add.message, /request-quote\/\?pid=91007/);
+
+  // form: pre-selects the product, validates, records, redirects to the thank-you state
+  const form = await (await get('/en-US/request-quote/?pid=91007')).text();
+  assert.match(form, /<option value="91007" selected>Chicken Leg Quarters<\/option>/);
+  const post = (body) => get('/en-US/request-quote/', { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(body) });
+  const bad = await post({ pid: '91007', firstName: 'Ann', email: 'nope' });
+  assert.equal(bad.status, 422);
+  assert.match(await bad.text(), /Enter a valid email address/);
+  const ok = await post({ pid: '91007', firstName: 'Ann', lastName: 'Lee', company: 'Lee’s Grill', email: 'ann@example.com', phone: '208 555 0100', quantity: '40 lb', zip: '83702', message: 'Weekly' });
+  assert.equal(ok.status, 303);
+  assert.equal(ok.headers.get('location'), '/en-US/request-quote/?sent=1&pid=91007');
+  assert.match(await (await get(ok.headers.get('location'))).text(), /your request is in/);
+  const log = fs.readFileSync(SUBMISSIONS, 'utf8');
+  assert.match(log, /"type":"quote".*"pid":"91007".*"quantity":"40 lb"/);
+});
+
 // Full crawl: every page renders, and every local asset and internal link it references resolves.
 test('every page renders and all of its local assets and links resolve', { timeout: 30 * 60_000 }, async () => {
   const checked = new Map();

@@ -8,7 +8,7 @@ const EMAIL_RE = /^[^\s@<>()[\],;:"]{1,64}@[^\s@<>()[\],;:"]{1,255}\.[a-z]{2,}$/
 const clean = (v, max = 500) => String(v ?? '').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').trim().slice(0, max);
 
 /** Append a submission to the local JSONL log so nothing is lost if mail is down. */
-function record(type, data) {
+export function record(type, data) {
   try {
     fs.mkdirSync(path.dirname(config.submissionsFile), { recursive: true });
     fs.appendFileSync(config.submissionsFile, JSON.stringify({ type, at: new Date().toISOString(), ...data }) + '\n');
@@ -18,7 +18,7 @@ function record(type, data) {
 }
 
 /** Fixed-window rate limit per client IP. */
-function rateLimit({ windowMs, max }) {
+export function rateLimit({ windowMs, max }) {
   const hits = new Map();
   setInterval(() => hits.clear(), windowMs).unref();
   return (req, res, next) => {

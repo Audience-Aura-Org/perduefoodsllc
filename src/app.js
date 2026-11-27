@@ -10,6 +10,7 @@ import { RefinementEngine, parseState, hasFilters } from './refinements.js';
 import { Catalog } from './catalog.js';
 import { shop } from './shop.js';
 import { PageCache } from './page-cache.js';
+import { quoteProducts, quoteRoutes } from './quote.js';
 const SEARCH_TYPES = ['Product', 'Recipe', 'Category', 'Recipe collection', 'Page'];
 
 // Browser / CDN caching. Captured pages are the same for every visitor (the cart badge is
@@ -98,6 +99,8 @@ export function createApp({ root = ROOT, production = config.production } = {}) 
 
   // Cart, checkout and order confirmation pages.
   app.use(commerce.site);
+  // Request-a-quote page for products sold by quote (no online price).
+  app.use(quoteRoutes({ products: quoteProducts(path.join(root, 'data'), registry) }));
 
   app.get('/health', (req, res) => res.json({ ok: true, pages: registry.pages.length }));
 

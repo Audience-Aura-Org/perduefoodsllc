@@ -98,7 +98,7 @@ export function shop({ catalog }) {
   };
   store.post('/Cart-AddProduct', form, (req, res) => {
     const product = catalog.get(req.body.pid);
-    if (!product) return res.json({ error: true, message: 'Sorry, this product is no longer available.' });
+    if (!product) return res.json({ error: true, message: catalog.isQuoteOnly(req.body.pid) ? `This product is priced on request. <a href="/en-US/request-quote/?pid=${encodeURIComponent(req.body.pid)}" class="alert-link">Request a quote</a>` : 'Sorry, this product is no longer available.' });
     if (!product.orderable) return res.json({ error: true, message: 'Sorry, this product is currently sold out.' });
     const id = carts.idFor(req, res, true);
     const qty = qtyOf(req.body.quantity);

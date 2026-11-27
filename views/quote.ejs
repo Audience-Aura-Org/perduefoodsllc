@@ -1,0 +1,116 @@
+<%
+  // field(name, label, opts): labelled input with error message and sticky value (same pattern as checkout)
+  const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const field = (name, label, o = {}) => {
+    const err = errors[name];
+    const id = 'q-' + name;
+    const attrs = [
+      `id="${id}"`, `name="${name}"`, `class="form-control${err ? ' is-invalid' : ''}"`, `type="${o.type || 'text'}"`,
+      o.autocomplete ? `autocomplete="${o.autocomplete}"` : '', o.inputmode ? `inputmode="${o.inputmode}"` : '',
+      o.maxlength ? `maxlength="${o.maxlength}"` : '', o.placeholder ? `placeholder="${o.placeholder}"` : '',
+      o.required ? 'required aria-required="true"' : '',
+      err ? `aria-invalid="true" aria-describedby="${id}-err"` : (o.hint ? `aria-describedby="${id}-hint"` : ''),
+    ].filter(Boolean).join(' ');
+    return `<div class="co-field ${o.cls || ''}"><label for="${id}">${label}${o.required ? '' : ' <span class="co-optional">(optional)</span>'}</label>`
+      + `<input ${attrs} value="${esc(values[name])}">`
+      + (o.hint && !err ? `<small id="${id}-hint" class="co-hint">${o.hint}</small>` : '')
+      + (err ? `<small id="${id}-err" class="co-error">${err}</small>` : '') + `</div>`;
+  };
+  const errorCount = Object.keys(errors).length;
+%>
+<%- include('/partials/document-start', { title, action: 'Quote-Show' }) %>
+<%- include('/partials/header') %>
+<div class="main-content" id="maincontent">
+  <div class="container shop-page quote-page">
+    <div class="shop-head">
+      <h1 class="offline-title">Request a Quote</h1>
+    </div>
+
+    <% if (sent) { %>
+      <div class="shop-empty quote-sent" role="status">
+        <svg class="shop-empty__icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#fbeedb"/><path d="M20 33l8 8 16-18" fill="none" stroke="#1f4d3a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2 class="shop-empty__title">Thank you, your request is in</h2>
+        <p>Our sales team will reply within one business day with pricing and delivery options<% if (product) { %> for <strong><%= product.name %></strong><% } %>. A copy of your request is on its way to your inbox.</p>
+        <p class="offline-actions"><a class="btn btn-primary" href="/en-US/farm-fresh-chicken/">Keep browsing</a><a class="btn btn-outline-primary" href="<%= product ? product.url : '/' %>"><%= product ? 'Back to product' : 'Home' %></a></p>
+      </div>
+    <% } else { %>
+      <p class="quote-intro">Prices for our farm-fresh chicken cuts depend on quantity and delivery location. Tell us what you need and we’ll reply within one business day with a quote.</p>
+
+      <% if (errorCount) { %>
+        <div class="co-summary" role="alert" tabindex="-1" id="co-error-summary">
+          <strong>Please fix <%= errorCount === 1 ? 'this' : 'these ' + errorCount %> to send your request:</strong>
+          <ul><% for (const [k, msg] of Object.entries(errors)) { %><li><% if (k === 'form') { %><%= msg %><% } else { %><a href="#q-<%= k %>"><%= msg %></a><% } %></li><% } %></ul>
+        </div>
+      <% } %>
+
+      <div class="shop-layout">
+        <form class="shop-main co-form" action="/en-US/request-quote/" method="post" novalidate>
+          <fieldset>
+            <legend><span class="co-step">1</span> What do you need?</legend>
+            <div class="co-field">
+              <label for="q-pid">Product</label>
+              <select id="q-pid" name="pid" class="form-control">
+                <option value="">Not sure yet / several products</option>
+                <% for (const p of products) { %><option value="<%= p.pid %>"<%= values.pid === p.pid ? ' selected' : '' %>><%= p.name %></option><% } %>
+              </select>
+            </div>
+            <%- field('quantity', 'Quantity', { required: true, maxlength: 100, placeholder: 'e.g. 40 lb, 10 cases, 5 packs', hint: 'Weight, cases or packs, whatever is easiest.' }) %>
+            <div class="co-field">
+              <label for="q-message">Anything else? <span class="co-optional">(optional)</span></label>
+              <textarea id="q-message" name="message" class="form-control" rows="4" maxlength="2000" placeholder="Delivery timing, recurring orders, other products you’re interested in…"><%= values.message || '' %></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="co-step">2</span> Your details</legend>
+            <div class="co-row">
+              <%- field('firstName', 'First name', { autocomplete: 'given-name', required: true, maxlength: 60 }) %>
+              <%- field('lastName', 'Last name', { autocomplete: 'family-name', required: true, maxlength: 60 }) %>
+            </div>
+            <%- field('company', 'Company or restaurant', { autocomplete: 'organization', maxlength: 100 }) %>
+            <div class="co-row">
+              <%- field('email', 'Email', { type: 'email', autocomplete: 'email', inputmode: 'email', required: true, maxlength: 254, hint: 'Your quote is sent here.' }) %>
+              <%- field('phone', 'Phone', { type: 'tel', autocomplete: 'tel-national', inputmode: 'tel', required: true, maxlength: 20, placeholder: '(555) 555-5555' }) %>
+            </div>
+            <%- field('zip', 'Delivery ZIP code', { autocomplete: 'postal-code', inputmode: 'numeric', required: true, maxlength: 10, cls: 'quote-zip' }) %>
+          </fieldset>
+
+          <div class="co-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn btn-primary btn-block shop-cta" type="submit">Send quote request</button>
+          <p class="co-fineprint">No payment is taken. We’ll only use your details to reply to this request.</p>
+        </form>
+
+        <aside class="shop-summary quote-summary" aria-label="Selected product">
+          <% if (product) { %>
+            <img class="quote-summary__img" src="<%= product.image %>" alt="">
+            <h2><%= product.name %></h2>
+            <p class="quote-summary__short"><%= product.short %></p>
+            <p class="quote-summary__price">Price on request</p>
+            <a class="shop-continue" href="<%= product.url %>">View product details</a>
+          <% } else { %>
+            <h2>How quotes work</h2>
+          <% } %>
+          <ul class="quote-steps">
+            <li>Tell us the products and quantity you need.</li>
+            <li>We reply within one business day with pricing and delivery options.</li>
+            <li>Confirm the quote and we arrange delivery and payment with you directly.</li>
+          </ul>
+        </aside>
+      </div>
+    <% } %>
+  </div>
+</div>
+<script>
+  (function () {
+    var summary = document.getElementById('co-error-summary');
+    if (summary) summary.focus();
+    var formEl = document.querySelector('.quote-page .co-form');
+    if (formEl) formEl.addEventListener('submit', function (e) {
+      var btn = this.querySelector('button[type=submit]');
+      if (btn.disabled) { e.preventDefault(); return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+    });
+  })();
+</script>
+<%- include('/partials/footer') %>
+<%- include('/partials/document-end') %>

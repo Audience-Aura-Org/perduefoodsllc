@@ -53,7 +53,7 @@ const ours = new Set(products.map((p) => p.pid));
 // ---------- sanity checks ----------
 for (const p of products) {
   must(/^[A-Za-z0-9-]+$/.test(p.pid) && /^[a-z0-9-]+$/.test(p.slug), `bad pid/slug: ${p.pid} ${p.slug}`);
-  must(Number.isFinite(p.price) && p.price > 0, `bad price for ${p.pid}`);
+  must(p.price == null || (Number.isFinite(p.price) && p.price > 0), `bad price for ${p.pid}`);
   const clash = pages.find((x) => x.pid === p.pid && !x.view.endsWith(`/${p.slug}/${p.pid}`));
   must(!clash, `pid ${p.pid} is already used by ${clash?.route}`);
   for (const c of p.categories) must(pages.some((x) => x.cgid === c), `unknown category ${c} (${p.pid})`);
@@ -62,6 +62,17 @@ for (const p of products) {
 const url = (p) => `/en-US/${p.slug}/${p.pid}.html`;
 const img = (p) => `/images/products/${p.pid}_${p.slug}.jpg`;
 const tileImg = (p) => `/images/products/${p.pid}_${p.slug}_500x500.jpg`;
+// Products without a price are sold by quote: no price, cart or quantity; a Request a Quote button instead.
+const isQuote = (p) => p.price == null;
+const quoteUrl = (p) => `/en-US/request-quote/?pid=${encodeURIComponent(p.pid)}`;
+
+/** Remove the <div>…</div> found at `marker` (or at `from(index)` when the div starts earlier). */
+function cutDiv(html, marker, { from = (i) => i } = {}) {
+  const at = html.indexOf(marker);
+  if (at < 0) return html;
+  const start = from(at);
+  return html.slice(0, start) + html.slice(matchingDivEnd(html, start));
+}
 
 // ---------- images ----------
 async function buildImages(p) {
@@ -101,7 +112,7 @@ function swapIdentity(html, p, { image }) {
   html = replaceAll(html, TEMPLATE.title, esc(p.name));
   html = replaceAll(html, TEMPLATE.name, esc(p.name));
   html = replaceAll(html, TEMPLATE.short, esc(p.short));
-  html = replaceAll(html, TEMPLATE.price, money(p.price));
+  html = replaceAll(html, TEMPLATE.price, isQuote(p) ? '0' : money(p.price));
   return replaceAll(html, TEMPLATE.pid, p.pid);
 }
 
@@ -144,6 +155,26 @@ function buildPage(p) {
                 </div>
         </div>` + head.slice(matchingDivEnd(head, inner));
 
+  // No social share buttons on product pages.
+  head = cutDiv(head, '<div class="col-12 social-container');
+  head = cutDiv(head, '<div class="copy-link-message');
+
+  if (isQuote(p)) {
+    // Marks the page for the catalog (src/catalog.js) so the product can never be added to a cart.
+    const opening = `class="container product-detail product-wrapper "  data-pid="${TEMPLATE.pid}"`;
+    must(head.includes(opening), 'template product-detail opening tag changed');
+    head = head.replace(opening, `${opening} data-quote-only="true"`);
+    head = cutDiv(head, 'col-12 promotions', { from: (i) => head.lastIndexOf('<div class="row"', i) }); // order-value promo
+    head = cutDiv(head, '<div class="row attribute quantity');
+    const buy = head.indexOf('<div class="prices-add-to-cart-actions">');
+    must(buy > 0, 'template buy box not found');
+    head = head.slice(0, buy) + `<div class="prices-add-to-cart-actions quote-box">
+    <p class="quote-box__label">Price on request</p>
+    <p class="quote-box__text">Pricing depends on quantity and delivery location. Tell us what you need and we’ll reply within one business day.</p>
+    <a class="btn quote-btn" href="${quoteUrl(p)}">Request a Quote</a>
+</div>` + head.slice(matchingDivEnd(head, buy));
+  }
+
   // analytics/category labels that still name the template's category
   head = replaceAll(head, TEMPLATE.cgName, CATEGORY_LABELS[p.primary] || 'Chicken');
 
@@ -167,6 +198,11 @@ function buildPage(p) {
   const html = swapIdentity(head, p, { image: img(p) }) + upsell + swapIdentity(details, p, { image: img(p) });
   const left = html.match(/.{0,120}(chicken_thighs_pack|nutritionModal).{0,80}/g);
   must(!left, `template leftovers in page ${p.pid}:\n${left?.join('\n')}`);
+  if (isQuote(p)) {
+    // The product section only: the site-wide promo bar above it mentions "$99.99" on purpose.
+    const buyArea = html.slice(html.indexOf('class="container product-detail'), html.indexOf('<div class="container pdp-description-banner-wrapper'));
+    must(!/class="sales"|class="add-to-cart\b|custom-qty|\$\d/.test(buyArea), `price or cart controls left on quote page ${p.pid}`);
+  }
   const file = path.join(VIEWS, 'pages/en-US', p.slug, p.pid + '.ejs');
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, html);
@@ -199,8 +235,18 @@ function buildTile(p, cgid) {
     .replace(/(\\"value\\":\\")thighs-and-legs(\\")/g, `$1${cgid}$2`)
     .replace(/PLP%20-%20Thighs%20and%20Legs/g, 'PLP%20-%20' + encodeURIComponent(label));
   html = replaceAll(html, TEMPLATE.cgName, label);
+  if (isQuote(p)) {
+    html = cutDiv(html, '<div class="product-tile prices');
+    html = html.replace('<div class="tile-content-bottom">', '<div class="tile-content-bottom">\n    <div class="product-tile prices quote-price"><span class="quote-price__text">Price on request</span></div>');
+    const cta = html.indexOf('<div class="tile-cta">');
+    must(cta > 0, 'template tile CTA not found');
+    html = html.slice(0, cta) + `<div class="tile-cta">
+    <a class="btn btn-primary quote-btn-pt" href="${quoteUrl(p)}">Request a Quote</a>
+</div>` + html.slice(matchingDivEnd(html, cta));
+  }
   html = swapIdentity(html, p, { image: tileImg(p) });
   must(!html.includes('chicken_thighs_pack'), `template leftovers in tile ${p.pid}/${cgid}`);
+  if (isQuote(p)) must(!/class="sales"|add-to-cart-pt|\$\d/.test(html), `price or cart button left in quote tile ${p.pid}`);
   return html;
 }
 

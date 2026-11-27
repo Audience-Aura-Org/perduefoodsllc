@@ -20,6 +20,15 @@ export class Catalog {
     this.viewsDir = viewsDir;
     /** @type {Map<string, Product|null>} */
     this.cache = new Map();
+    /** @type {Set<string>} product ids sold by quote only (no online price) */
+    this.quoteOnly = new Set();
+  }
+
+  /** Is this product sold by quote request only? @param {string} pid */
+  isQuoteOnly(pid) {
+    pid = String(pid || '');
+    this.get(pid);
+    return this.quoteOnly.has(pid);
   }
 
   /** @param {string} pid @returns {Product|null} */
@@ -32,6 +41,13 @@ export class Catalog {
       const html = fs.readFileSync(path.join(this.viewsDir, page.view + '.ejs'), 'utf8');
       const start = html.indexOf('class="container product-detail');
       const detail = start >= 0 ? html.slice(start, start + 60000) : html;
+      // Products sold by quote have no online price. Without this guard the price regex below
+      // would pick up a recommended product's price further down the page.
+      if (/data-quote-only="true"/.test(detail.slice(0, 400))) {
+        this.quoteOnly.add(pid);
+        this.cache.set(pid, null);
+        return null;
+      }
       const price = Number((detail.match(/class="sales"[\s\S]*?class="value" content="([\d.]+)"/) || [])[1]);
       const list = Number((detail.match(/class="strike-through list"[\s\S]*?class="value" content="([\d.]+)"/) || [])[1]);
       const image = (detail.match(/<img\b[^>]*\ssrc="(\/images\/products\/[^"]+)"/) || [])[1] || page.image || '/images/missing.svg';

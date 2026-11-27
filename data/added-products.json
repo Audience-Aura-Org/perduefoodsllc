@@ -1,5 +1,5 @@
 {
-  "about": "Products added by hand (not captured). Build with: npm run products:add. Prices and pack sizes are store-set; product photos come from optimeat.ro (source image file names below).",
+  "about": "Products added by hand (not captured). Build with: npm run products:add. Products without a \"price\" are sold by quote: their pages and tiles show \"Price on request\" and a Request a Quote button (/en-US/request-quote/). Add a \"price\" to sell one through the cart instead. Product photos come from optimeat.ro (source image file names below).",
   "imageBase": "https://www.optimeat.ro/wp-content/uploads/",
   "homepageHeading": {
     "eyebrow": "Our main products",
@@ -21,7 +21,6 @@
       "pid": "91001",
       "slug": "whole-chicken-grill",
       "name": "Whole Chicken, Ready to Roast",
-      "price": 16.99,
       "image": "2019/06/pui-grill-fara-organe-fara-gat-Optimeat.jpg",
       "short": "Approx. 3.5-lb. whole chicken, giblets and neck removed, ready for the oven or grill",
       "description": [
@@ -52,7 +51,6 @@
       "pid": "91002",
       "slug": "boneless-skinless-chicken-breast-halves",
       "name": "Boneless Skinless Chicken Breast Halves",
-      "price": 27.99,
       "image": "2019/06/piept-jumatati-fara-os-fara-piele-fara-inner-file-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of single boneless, skinless breast halves with the tenderloin removed",
       "description": [
@@ -83,7 +81,6 @@
       "pid": "91003",
       "slug": "butterfly-chicken-breast-fillets",
       "name": "Butterfly Chicken Breast Fillets",
-      "price": 29.99,
       "image": "2019/06/piept-intreg-fara-os-fara-piela-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of whole boneless, skinless breasts, butterflied for quick, even cooking",
       "description": [
@@ -114,7 +111,6 @@
       "pid": "91004",
       "slug": "bone-in-skin-on-chicken-breasts",
       "name": "Bone-In Skin-On Chicken Breasts",
-      "price": 22.99,
       "image": "2019/06/piept-de-pui-intreg-cu-os-si-piele-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of whole bone-in, skin-on breasts for roasting and grilling",
       "description": [
@@ -144,7 +140,6 @@
       "pid": "91005",
       "slug": "oyster-cut-chicken-legs",
       "name": "Oyster-Cut Chicken Legs",
-      "price": 18.99,
       "image": "2019/06/pulpa-pui-fara-spate-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of whole legs, thigh and drumstick, with the backbone removed",
       "description": [
@@ -174,7 +169,6 @@
       "pid": "91006",
       "slug": "bone-in-chicken-thighs-bulk-pack",
       "name": "Bone-In Chicken Thighs Bulk Pack",
-      "price": 19.99,
       "image": "2019/06/pulpa-superioara-de-pui-cu-os-si-piele-Optimeat.jpg",
       "short": "Approx. 4-lb. bulk pack of bone-in, skin-on thighs",
       "description": [
@@ -205,7 +199,6 @@
       "pid": "91007",
       "slug": "chicken-leg-quarters",
       "name": "Chicken Leg Quarters",
-      "price": 17.99,
       "image": "2019/06/pulpa-pui-cu-spate-Optimeat.jpg",
       "short": "Approx. 5-lb. value pack of leg quarters, thigh, drumstick and a portion of back",
       "description": [
@@ -237,7 +230,6 @@
       "pid": "91008",
       "slug": "bone-in-chicken-drumsticks",
       "name": "Bone-In Skin-On Chicken Drumsticks",
-      "price": 16.99,
       "image": "2019/06/pulpa-inferioara-de-pui-cu-os-si-piele-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of meaty, bone-in, skin-on drumsticks",
       "description": [
@@ -267,7 +259,6 @@
       "pid": "91009",
       "slug": "whole-chicken-wings-3-joint",
       "name": "Whole Chicken Wings, 3-Joint",
-      "price": 24.99,
       "image": "2019/06/aripi-de-pui-3-piese-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of whole, uncut wings: drumette, flat and tip",
       "description": [
@@ -297,7 +288,6 @@
       "pid": "91010",
       "slug": "chicken-wing-drumettes",
       "name": "Chicken Wing Drumettes",
-      "price": 26.99,
       "image": "2019/06/aripi-de-pui-primul-segment-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of meaty wing drumettes, the first segment of the wing",
       "description": [
@@ -328,7 +318,6 @@
       "pid": "91011",
       "slug": "chicken-wing-flats",
       "name": "Chicken Wing Flats",
-      "price": 27.99,
       "image": "2019/06/aripi-de-pui-al-doilea-segment-Optimeat.jpg",
       "short": "Approx. 3-lb. pack of wing flats, the second segment of the wing",
       "description": [
@@ -358,7 +347,6 @@
       "pid": "91012",
       "slug": "chicken-feet",
       "name": "Chicken Feet",
-      "price": 9.99,
       "image": "2019/06/picioare-de-pui-procesate-Optimeat.jpg",
       "short": "Approx. 2-lb. pack of cleaned, processed chicken feet",
       "description": [
@@ -387,7 +375,6 @@
       "pid": "91013",
       "slug": "chicken-livers",
       "name": "Chicken Livers",
-      "price": 8.99,
       "image": "2019/06/ficat-de-pui-Optimeat.jpg",
       "short": "Approx. 1.5-lb. pack of tender, mild chicken livers",
       "description": [
@@ -416,7 +403,6 @@
       "pid": "91014",
       "slug": "chicken-hearts",
       "name": "Chicken Hearts",
-      "price": 10.99,
       "image": "2019/06/inima-de-pui-Optimeat.jpg",
       "short": "Approx. 1.5-lb. pack of cleaned chicken hearts",
       "description": [
@@ -445,7 +431,6 @@
       "pid": "91015",
       "slug": "chicken-gizzards",
       "name": "Chicken Gizzards",
-      "price": 9.99,
       "image": "2019/06/pipote-pui-Optimeat.jpg",
       "short": "Approx. 2-lb. pack of cleaned chicken gizzards",
       "description": [
@@ -474,7 +459,6 @@
       "pid": "91016",
       "slug": "chicken-necks",
       "name": "Skinless Chicken Necks",
-      "price": 7.99,
       "image": "2019/06/gat-fara-piele-Optimeat.jpg",
       "short": "Approx. 2-lb. pack of skinless chicken necks for stock and soup",
       "description": [

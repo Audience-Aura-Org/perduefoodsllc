@@ -125,6 +125,22 @@ export const templates = {
     ])),
     text: `Data collection opt-out request\n${f.firstName} ${f.lastName} <${f.email}>\nOpt out: ${f.optout ? 'yes' : 'no'}\nCA/NV consumer: ${f.caNv ? 'yes' : 'no'}`,
   }),
+  quoteAdmin: (q) => ({
+    subject: `Quote request: ${q.product ? q.product.name : 'General'} from ${q.firstName} ${q.lastName}${q.company ? ` (${q.company})` : ''}`,
+    html: layout('New quote request', rows([
+      ['Product', q.product ? `${q.product.name} (item ${q.product.pid})` : 'Not specified'], ['Quantity', q.quantity],
+      ['Name', `${q.firstName} ${q.lastName}`], ['Company', q.company], ['Email', q.email], ['Phone', q.phone],
+      ['Delivery ZIP', q.zip], ['Message', q.message], ['Product page', q.product ? q.product.pageUrl : ''], ['Time', new Date().toISOString()],
+    ])),
+    text: `New quote request\nProduct: ${q.product ? `${q.product.name} (${q.product.pid})` : 'Not specified'}\nQuantity: ${q.quantity}\n${q.firstName} ${q.lastName}${q.company ? `, ${q.company}` : ''}\n${q.email} ${q.phone}\nDelivery ZIP: ${q.zip}\n\n${q.message}`,
+  }),
+  quoteConfirmation: (q) => ({
+    subject: `We received your quote request${q.product ? ` for ${q.product.name}` : ''} — Perdue Farms`,
+    html: layout(`Thanks, ${q.firstName}!`, `<p style="line-height:1.6">We received your quote request and our sales team will reply within one business day with pricing and delivery options.</p>${rows([
+      ['Product', q.product ? q.product.name : 'Not specified'], ['Quantity', q.quantity], ['Delivery ZIP', q.zip], ['Message', q.message],
+    ])}<p style="line-height:1.6;color:#5b6770">Questions in the meantime? Just reply to this email.</p>`),
+    text: `Thanks, ${q.firstName}! We received your quote request${q.product ? ` for ${q.product.name}` : ''} (quantity: ${q.quantity}). Our sales team will reply within one business day with pricing and delivery options.`,
+  }),
   ambassadorConfirmation: (f) => ({
     subject: 'We received your Perdue Farms ambassador application',
     html: layout(`Thanks, ${f.firstName}!`, '<p style="line-height:1.6">We received your application to the Perdue Farms ambassador program. Our team reviews every application and will be in touch if it’s a good fit.</p>'),
